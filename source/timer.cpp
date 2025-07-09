@@ -19,9 +19,6 @@ void start(float seconds, std::function<void()> callback, int loops) {
             
             // Execute the callback
             callback();
-            
-            // Early exit if we're asked to stop during sleep
-            if (loops < 0) break;
         }
     }).detach();
 }

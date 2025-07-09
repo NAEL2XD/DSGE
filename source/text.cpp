@@ -56,7 +56,8 @@ Text::Text(int x, int y, const std::string& Text) :
     visible(true),
     width(0),
     x(x), y(y),
-    scale{1.0f, 1.0f}
+    scale{1.0f, 1.0f},
+    acceleration{0, 0}
 {
     _private.debug = false;
     createText();
@@ -93,6 +94,9 @@ void Text::render() {
     float scX = flipX ? -scale.x : scale.x;
     float scY = flipY ? -scale.y : scale.y;
     bool debug = _private.debug;
+
+    x += acceleration.x;
+    y += acceleration.y;
 
     float newX = x;
     if (!debug) {

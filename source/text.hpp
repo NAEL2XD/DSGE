@@ -36,6 +36,11 @@ public:
     int         y;           // Y position
 
     struct {
+        float x; // X's Acceleration speed.
+        float y; // Y's Acceleration speed.
+    } acceleration;
+
+    struct {
         float x;        // Horizontal scale
         float y;        // Vertical scale
 
