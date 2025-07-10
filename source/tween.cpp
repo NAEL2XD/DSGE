@@ -99,7 +99,7 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
                 }
             }
 
-            std::this_thread::sleep_for(milliseconds(16)); // ~60fps
+            svcSleepThread(1666666); // ~60fps
         }
 
         // Ensure final values are exact
