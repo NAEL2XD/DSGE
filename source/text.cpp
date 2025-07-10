@@ -39,7 +39,6 @@ void Text::createText() {
 }
 
 Text::Text(int x, int y, const std::string& Text) :
-    alignment(ALIGN_LEFT),
     alpha(1.0f),
     angle(0),
     borderStyle(BS_Border),
@@ -56,8 +55,8 @@ Text::Text(int x, int y, const std::string& Text) :
     visible(true),
     width(0),
     x(x), y(y),
-    scale{1.0f, 1.0f},
-    acceleration{0, 0}
+    acceleration{0, 0},
+    scale{1.0f, 1.0f}
 {
     _private.debug = false;
     createText();
@@ -99,20 +98,11 @@ void Text::render() {
     x += acceleration.x;
     y += acceleration.y;
 
-    float newX = x;
-    if (!debug) {
-        switch (alignment) {
-            case ALIGN_LEFT:   break; // No change
-            case ALIGN_CENTER: newX += (dsge::WIDTH - width) / 2; break;
-            case ALIGN_RIGHT:  newX += dsge::WIDTH - width; break;
-        }
-    }
-
     float fW = width * 0.5f;
     float fH = height * 0.5f;
 
     C2D_ViewSave(&_private.matrix);
-    C2D_ViewTranslate(debug ? newX : newX + fW, debug ? y : y + fH);
+    C2D_ViewTranslate(debug ? x : x + fW, debug ? y : y + fH);
     C2D_ViewRotate(debug ? 0 : Math::angleToRadians(angle));
     C2D_ViewScale(scX, scY);
 

@@ -7,16 +7,9 @@ typedef enum {
     BS_Shadow = 1
 } bStyle;
 
-typedef enum {
-    ALIGN_LEFT = 0,
-    ALIGN_CENTER = 1,
-    ALIGN_RIGHT = 2
-} align;
-
 namespace dsge {
 class Text {
 public:
-    align       alignment;   // The alignment to set for the text.
     float       alpha;       // Alpha transparency (0.0 = invisible, 1.0 = fully visible)
     float       angle;       // Angular rotation in degrees.
     bStyle      borderStyle; // Style of the border, can be `BS_Border` or `BS_Shadow`.
