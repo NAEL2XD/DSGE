@@ -48,11 +48,11 @@ float floating(float min = 1, float max = 2147483647, int decimal = 2);
 bool boolean(float chance = 50);
 
 /**
- * @brief Returns a random color without the alpha change.
+ * @brief Returns a random color by ranging through 0xFF000000 (black) to 0xFFFFFFFF (white).
  * 
  * #### Example Usage:
  * ```
- * dsge::Random::color(); // Returns a random color between 0xFF000000 to 0xFFFFFFFF
+ * dsge::Random::color(); // Returns a random color ranging through 0xFF000000 to 0xFFFFFFFF
  * ```
  */
 u32 color();

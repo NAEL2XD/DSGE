@@ -54,6 +54,13 @@ extern color dsgeColor;
 extern u64 elapsed;
 
 /**
+ * @brief Current background hex color when using the dsge::Render function.
+ * 
+ * Be careful, if you are debugging and want to set the background color to white, the print output will blend with all of the whiteness! But not to fear, it'll output in the bottom screen instead.
+ */
+extern u32 bgColor;
+
+/**
  * Initializes dsge and bring back the lives of your own 3DS Games.
  * 
  * Note that if you try to initialize the same function again, there's likely bad things that is gonna happen so don't trigger twice!

@@ -8,6 +8,7 @@ namespace dsge {
 // Public exports
 color dsgeColor;
 u64 elapsed;
+u32 bgColor;
 
 namespace _internal {
     // Implementation details
@@ -20,7 +21,7 @@ namespace _internal {
 
         Text d(2, 2 + (11 * _debugText.size()), message);
         d.scale.set(0.4, 0.4);
-        d._private.debug = true; // <-- Set debug mode
+        d._private.debug = true; // Set debug mode for this 
         _debugText.insert(_debugText.begin(), d);
         _debugCol.insert(_debugCol.begin(), 255);
     }
@@ -82,6 +83,8 @@ void init() {
     dsgeColor.transparent = 0x00000000;
     dsgeColor.white       = 0xffffffff;
     dsgeColor.yellow      = 0xff00ffff;
+
+    bgColor = 0xFF000000;
     
     srand(time(NULL));
 
@@ -95,6 +98,8 @@ void render(std::function<void()> function) {
     C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
     C2D_TargetClear(_internal::top, C2D_Color32(0, 0, 0, 0xFF));
     C2D_SceneBegin(_internal::top);
+
+    C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
 
     function();
 
