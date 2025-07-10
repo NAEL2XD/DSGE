@@ -31,9 +31,9 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       := best game ever made
-APP_DESCRIPTION := Game made using DSGE
-APP_AUTHOR      := Nael2xd
+APP_TITLE       := DSGE Template
+APP_DESCRIPTION := First Homebrew Game using DSGE!!
+APP_AUTHOR      := Author
 
 BUILD       := build
 SOURCES     := source
