@@ -87,6 +87,7 @@ bool Text::isOnScreen() {
 }
 
 void Text::render() {
+    // TODO: fix shit being off centered if scale is not 1 and is ALIGN_CENTER'd
     if (!visible || text.empty() || !isOnScreen()) return;
 
     createText(); // Ensure text dimensions are updated
