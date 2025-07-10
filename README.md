@@ -3,7 +3,7 @@
 </h1>
 
 > [!WARNING] 
-> DSGE is still in developement, not many functions in DSGE is included and sometimes can take hours to create one, you may also experience bugs from DSGE and i'm working hard to fix any bugs before pushing to release!
+> DSGE is still in developement, not many functions in DSGE is included and sometimes can take hours to implement just for a single function, you may also experience bugs from DSGE and i'm working hard to fix any bugs before pushing to release!
 
 #### What is this?
 It's yet another 3DS Library made using C++, it's mission is to make DSGE a whole lot easier to make games for the 3DS System.
