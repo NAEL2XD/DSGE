@@ -122,7 +122,7 @@ void Text::render() {
                 break;
             }
             case BS_Shadow: {
-                for (int i = 1; i < (int)borderSize + 1; i++) {
+                for (int i = 1; i < border + 1; i++) {
                     C2D_DrawText(&c2dText, C2D_WithColor, -i - fW, i - fH, 0.5f, 1.0f, 1.0f, bCol);
                 }
                 break;
