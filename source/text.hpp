@@ -65,6 +65,7 @@ public:
     struct {
         C3D_Mtx matrix;
         bool debug;
+        bool destroyed;
     } _private;
     
 
@@ -119,6 +120,13 @@ public:
      * ```
      */
     void render();
+
+    /**
+     * @brief Frees text's specific variables and cleans up memory so you can handle making more rendered texts.
+     * 
+     * For Null Safety reasons, there's a specific variable that's not gonna be freed but will stop you from rendering, or doing text's stuff.
+     */
+    void destroy();
 
     static void init();
     static void exit();

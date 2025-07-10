@@ -60,10 +60,13 @@ Text::Text(int x, int y, const std::string& Text) :
     scale{1.0f, 1.0f}
 {
     _private.debug = false;
+    _private.destroyed = false;
     createText();
 }
 
 void Text::screenCenter(axes pos) {
+    if (_private.destroyed) return;
+
     createText(); // Ensure width/height is updated
 
     float newX = (dsge::WIDTH  - width) / 2;
@@ -77,6 +80,8 @@ void Text::screenCenter(axes pos) {
 }
 
 bool Text::isOnScreen() {
+    if (_private.destroyed) return false;
+
     if (!visible) {
         return false;
     }
@@ -87,7 +92,7 @@ bool Text::isOnScreen() {
 }
 
 void Text::render() {
-    if (!visible || text.empty() || !isOnScreen()) return;
+    if (_private.destroyed || !visible || text.empty() || !isOnScreen()) return;
 
     createText(); // Ensure text dimensions are updated
 
@@ -152,5 +157,36 @@ void Text::render() {
     C2D_DrawText(&c2dText, C2D_WithColor, 0, 0, 0.5f, 1.0f, 1.0f, col);
 
     C2D_ViewRestore(&_private.matrix);
+}
+
+void Text::destroy() {
+    if (_private.destroyed) return;
+    
+    if (font) {
+        C2D_FontFree(font);
+    }
+
+    acceleration = {0, 0};
+    alignment = ALIGN_LEFT;
+    alpha = 0;
+    angle = 0;
+    borderStyle = BS_Border;
+    bold = false;
+    borderColor = 0;
+    borderSize = 0;
+    color = 0;
+    flipX = false;
+    flipY = false;
+    font = nullptr;
+    height = 0;
+    scale = {0, 0};
+    text = "";
+    underline = false;
+    visible = false;
+    width = 0;
+    x = 0;
+    y = 0;
+
+    _private.destroyed = true;
 }
 }

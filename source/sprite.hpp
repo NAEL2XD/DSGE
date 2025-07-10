@@ -23,6 +23,8 @@ public:
 
     struct {
         C2D_Image image;
+        C2D_SpriteSheet sprite;
+        bool destroyed;
     } _private;
 
     struct {
@@ -133,5 +135,12 @@ public:
      * ```
      */
     void screenCenter(axes pos = AXES_XY);
+
+    /**
+     * @brief Frees sprite's specific variables and cleans up memory so you can handle making more rendered sprites.
+     * 
+     * For Null Safety reasons, there's a specific variable that's not gonna be freed but will stop you from rendering, or doing sprite's stuff.
+     */
+    void destroy();
 };
 } // namespace dsge

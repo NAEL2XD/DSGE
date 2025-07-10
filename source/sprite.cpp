@@ -15,18 +15,22 @@ Sprite::Sprite(int x, int y) :
     acceleration{0, 0}
 {
     _private.image = { NULL, NULL };
+    _private.sprite = NULL;
+    _private.destroyed = false;
 }
 
 bool Sprite::loadGraphic(const std::string& file) {
+    if (_private.destroyed) return false;
+
     std::string filePath = "romfs:/" + file;
 
-    C2D_SpriteSheet spriteSheet = C2D_SpriteSheetLoad(filePath.c_str());
-    if (!spriteSheet) {
+    _private.sprite = C2D_SpriteSheetLoad(filePath.c_str());
+    if (!_private.sprite) {
         print("[WARN] Sprite::loadGraphic: Failed to load Sprite sheet: " + file);
         return false;
     }
 
-    C2D_Image ret = C2D_SpriteSheetGetImage(spriteSheet, 0);
+    C2D_Image ret = C2D_SpriteSheetGetImage(_private.sprite, 0);
     _private.image = ret;
     width = ret.subtex->width;
     height = ret.subtex->height;
@@ -35,12 +39,16 @@ bool Sprite::loadGraphic(const std::string& file) {
 }
 
 void Sprite::makeGraphic(int width, int height, u32 color) {
+    if (_private.destroyed) return;
+
     this->width  = fabs(width);
     this->height = fabs(height);
     this->color  = fabs(color);
 }
 
 void Sprite::screenCenter(axes pos) {
+    if (_private.destroyed) return;
+
     float newX = ((dsge::WIDTH - width) / 2) + (width / 2);
     float newY = ((dsge::HEIGHT - height) / 2) + (height / 2);
 
@@ -59,7 +67,7 @@ void Sprite::screenCenter(axes pos) {
 }
 
 bool Sprite::isOnScreen() {
-    if (!visible) {
+    if (_private.destroyed || !visible) {
         return false;
     }
 
@@ -67,7 +75,7 @@ bool Sprite::isOnScreen() {
 }
 
 void Sprite::render() {
-    if (!visible || (width == 0 && height == 0) || !isOnScreen()) return;
+    if (_private.destroyed || !visible || (width == 0 && height == 0) || !isOnScreen()) return;
 
     // Crash prevention(?)
     if (width < 0) width = -width;
@@ -88,4 +96,27 @@ void Sprite::render() {
     }
 }
 
+void Sprite::destroy() {
+    if (_private.destroyed) return;
+
+    if (_private.sprite) {
+        C2D_SpriteSheetFree(_private.sprite);
+        _private.sprite = nullptr;
+    }
+
+    acceleration = {0, 0};
+    angle = 0.0f;
+    color = 0;
+    flipX = false;
+    flipY = false;
+    scale = {0, 0};
+    visible = false;
+    width = 0;
+    height = 0;
+    x = 0;
+    y = 0;
+
+    _private.image = {nullptr, nullptr};
+    _private.destroyed = true;
+}
 } // namespace dsge
