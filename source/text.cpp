@@ -39,6 +39,7 @@ void Text::createText() {
 }
 
 Text::Text(int x, int y, const std::string& Text) :
+    alignment(ALIGN_LEFT),
     alpha(1.0f),
     angle(0),
     borderStyle(BS_Border),
@@ -86,7 +87,6 @@ bool Text::isOnScreen() {
 }
 
 void Text::render() {
-    // TODO: fix shit being off centered if scale is not 1 and is ALIGN_CENTER'd
     if (!visible || text.empty() || !isOnScreen()) return;
 
     createText(); // Ensure text dimensions are updated
@@ -98,11 +98,17 @@ void Text::render() {
     x += acceleration.x;
     y += acceleration.y;
 
-    float fW = width * 0.5f;
-    float fH = height * 0.5f;
+    float newX = x;
+    if (!debug) {
+        switch (alignment) {
+            case ALIGN_LEFT:   break; // No change
+            case ALIGN_CENTER: newX += (dsge::WIDTH - width) / 2; break;
+            case ALIGN_RIGHT:  newX += dsge::WIDTH - width; break;
+        }
+    }
 
     C2D_ViewSave(&_private.matrix);
-    C2D_ViewTranslate(debug ? x : x + fW, debug ? y : y + fH);
+    C2D_ViewTranslate(newX, y);
     C2D_ViewRotate(debug ? 0 : Math::angleToRadians(angle));
     C2D_ViewScale(scX, scY);
 
@@ -117,13 +123,13 @@ void Text::render() {
             case BS_Border: {
                 int offsets[8][2] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 for (int i = 0; i < 8; i++) {
-                    C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border) - fW, (offsets[i][1] * border) - fH, 0.5f, 1.0f, 1.0f, bCol);
+                    C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border), (offsets[i][1] * border), 0.5f, 1.0f, 1.0f, bCol);
                 }
                 break;
             }
             case BS_Shadow: {
-                for (int i = 1; i < border + 1; i++) {
-                    C2D_DrawText(&c2dText, C2D_WithColor, -i - fW, i - fH, 0.5f, 1.0f, 1.0f, bCol);
+                for (int i = 1; i < (int)borderSize + 1; i++) {
+                    C2D_DrawText(&c2dText, C2D_WithColor, -i, i, 0.5f, 1.0f, 1.0f, bCol);
                 }
                 break;
             }
@@ -133,17 +139,17 @@ void Text::render() {
     // Bold
     if (bold) {
         for (int i = 1; i < 3; i++) {
-            C2D_DrawText(&c2dText, C2D_WithColor, i - fW, -fH, 0.5f, 1.0f, 1.0f, col);
+            C2D_DrawText(&c2dText, C2D_WithColor, i, 0, 0.5f, 1.0f, 1.0f, col);
         }
     }
 
     // Underline
     if (underline) {
-        C2D_DrawRectSolid(fH + 2, -fW, 0.5f, width, 1.0f, col);
+        C2D_DrawRectSolid(width + 2, height, 0.5f, width, 1.0f, col);
     }
 
     // Main text
-    C2D_DrawText(&c2dText, C2D_WithColor, debug ? 0 : -fW, debug ? 0 : -fH, 0.5f, 1.0f, 1.0f, col);
+    C2D_DrawText(&c2dText, C2D_WithColor, 0, 0, 0.5f, 1.0f, 1.0f, col);
 
     C2D_ViewRestore(&_private.matrix);
 }
