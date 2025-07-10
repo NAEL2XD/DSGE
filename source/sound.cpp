@@ -66,28 +66,28 @@ int play(const std::string& path) {
     }
     
     if (!channel) {
-        print("Sound::play: No available audio channels\n");
+        print("[WARN] Sound::play: No available audio channels\n");
         return -1;
     }
     
     // Open Ogg Vorbis file
     FILE* fh = fopen(("romfs:/" + path).c_str(), "rb");
     if (!fh) {
-        print("Sound::play: Failed to open file: " + path);
+        print("[WARN] Sound::play: Failed to open file: " + path);
         return -1;
     }
     
     memset(&channel->vorbisFile, 0, sizeof(OggVorbis_File));
     int error = ov_open(fh, &channel->vorbisFile, nullptr, 0);
     if (error) {
-        print("ov_open: error " + std::to_string(error) + " (" + vorbisStrError(error) + ")");
+        print("[WARN] ov_open: error " + std::to_string(error) + " (" + vorbisStrError(error) + ")");
         fclose(fh);
         return -1;
     }
     
     // Initialize audio system for this channel
     if (!audioInit(channel)) {
-        print("Sound::play: Failed to initialize audio channel " + channel->channel_id);
+        print("[WARN] Sound::play: Failed to initialize audio channel " + channel->channel_id);
         ov_clear(&channel->vorbisFile);
         return -1;
     }
@@ -101,7 +101,7 @@ int play(const std::string& path) {
     channel->quit = false;
     channel->threadId = threadCreate(audioThread, channel, 32 * 1024, priority, -1, false);
     if (!channel->threadId) {
-        print("Sound::play: Failed to create audio thread");
+        print("[WARN] Sound::play: Failed to create audio thread");
         audioExit(channel);
         ov_clear(&channel->vorbisFile);
         return -1;
@@ -137,7 +137,7 @@ bool replay(int channel) {
     // Reset/rewind vorbis file to beginning
     int res = ov_time_seek(&ch->vorbisFile, 0.0);
     if (res != 0) {
-        print("Sound::replay: Failed to seek to start (error " + std::to_string(res) + ": " + vorbisStrError(res) + ")");
+        print("[WARN] Sound::replay: Failed to seek to start (error " + std::to_string(res) + ": " + vorbisStrError(res) + ")");
         ndspChnSetPaused(channel, false);
         return false;
     }
@@ -153,7 +153,7 @@ bool replay(int channel) {
 
     // Re-initialize audio data in buffers
     if (!audioInit(ch)) {
-        print("Sound::replay: Failed to reinit audio buffer");
+        print("[WARN] Sound::replay: Failed to reinit audio buffer");
         ndspChnSetPaused(channel, false);
         return false;
     }
@@ -194,7 +194,7 @@ namespace {
                 const int bytesRead = ov_read(&channel->vorbisFile, (char*)buffer, bufferSize, nullptr);
                 if (bytesRead <= 0) {
                     if (bytesRead == 0) break;
-                    print("Channel " + std::to_string(channel->channel_id) + ": ov_read error " + std::to_string(bytesRead) + " (" + vorbisStrError(bytesRead) + ")");
+                    print("[WARN] Channel " + std::to_string(channel->channel_id) + ": ov_read error " + std::to_string(bytesRead) + " (" + vorbisStrError(bytesRead) + ")");
                     break;
                 }
                 totalBytes += bytesRead;
@@ -240,7 +240,7 @@ namespace {
         
         channel->audioBuffer = (int16_t*)linearAlloc(bufferSize);
         if (!channel->audioBuffer) {
-            print("Failed to allocate audio buffer for channel " + channel->channel_id);
+            print("[WARN] Failed to allocate audio buffer for channel " + channel->channel_id);
             return false;
         }
 
