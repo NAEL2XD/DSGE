@@ -55,7 +55,6 @@ Text::Text(int x, int y, const std::string& Text) :
     underline(false),
     visible(true),
     width(0),
-    wordWrap(false),
     x(x), y(y),
     acceleration{0, 0},
     scale{1.0f, 1.0f}
