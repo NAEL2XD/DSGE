@@ -185,6 +185,7 @@ void render(std::function<void()> function);
  * @brief The current width of the 3DS.
  * 
  * #### Warning:
+ * 
  * NEVER EVER mess with this variable because it's use for screen center and a whole LOT more!! I suggest you to never set anything there.
  * 
  * #### Example Usage:
@@ -198,6 +199,7 @@ int WIDTH  = 400;
  * @brief The current height of the 3DS.
  * 
  * #### Warning:
+ * 
  * NEVER EVER mess with this variable because it's use for screen center and a whole LOT more!! I suggest you to never set anything there.
  * 
  * #### Example Usage:
