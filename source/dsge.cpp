@@ -66,6 +66,8 @@ void init() {
     C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
     C2D_Prepare();
 
+    osSetSpeedupEnable(true);
+
     _internal::top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
     
     dsgeColor.black       = 0xff000000;
