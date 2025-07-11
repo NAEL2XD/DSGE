@@ -84,6 +84,7 @@ void init() {
     dsgeColor.white       = 0xffffffff;
     dsgeColor.yellow      = 0xff00ffff;
 
+    elapsed = 0;
     bgColor = 0xFF000000;
     
     srand(time(NULL));

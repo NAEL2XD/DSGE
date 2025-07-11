@@ -10,19 +10,33 @@
  * These functions modify the progress value to create different animation effects.
  * 
  * #### Easing Types:
+ * 
  * - LINEAR: No easing, linear progression
+ * 
  * - SINE_IN: Slow start, accelerating
+ * 
  * - SINE_OUT: Fast start, decelerating
+ * 
  * - SINE_IN_OUT: Slow start and end, fast middle
+ * 
  * - QUAD_IN: Quadratic easing in
+ * 
  * - QUAD_OUT: Quadratic easing out
+ * 
  * - QUAD_IN_OUT: Quadratic easing in and out
+ * 
  * - CUBIC_IN: Cubic easing in
+ * 
  * - CUBIC_OUT: Cubic easing out
+ * 
  * - CUBIC_IN_OUT: Cubic easing in and out
+ * 
  * - EXPO_IN: Exponential easing in
+ * 
  * - EXPO_OUT: Exponential easing out
+ * 
  * - EXPO_IN_OUT: Exponential easing in and out
+ * 
  */
 typedef enum {
     EASE_LINEAR,     // No easing

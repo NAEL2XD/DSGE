@@ -29,7 +29,6 @@ double distanceBetween(dsge::Sprite spriteA, dsge::Sprite spriteB);
  * 
  * will extrapolate beyond the [a, b] range.
  * 
- * 
  * @param a The start value (returned when t = 0)
  * @param b The end value (returned when t = 1)
  * @param t The interpolation parameter (typically between 0 and 1)

@@ -41,8 +41,18 @@ void sendNotification(std::string title, std::string description);
 void popupError(errorConf errorCtx, std::string text);
 
 /**
- *  @brief Reads the input text from user and returns the string result.
- *  @return String with text inputted to user.
+ * @brief Reads the input text from user and returns the string result.
+ * 
+ * This will use the SWKBD applet to launch the text and then return string inputted from the user.
+ * 
+ * @return String with text inputted to user.
+ * 
+ * #### Example Usage:
+ * ```
+ * std::string newInput = dsge::Applet::swkbdGetInput();
+ * 
+ * print(newInput);
+ * ```
  */
 std::string swkbdGetInput();
 

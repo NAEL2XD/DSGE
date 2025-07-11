@@ -47,32 +47,88 @@ namespace _internal {
     void _renderDebugText();
 }
 
-// The external color for dsge.
+/**
+ * @brief The external color for dsge.
+ * 
+ * You cannot modify this, if you do, something may go wrong with the look of the colors and it may not look right.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Getting the green color:
+ * dsge::dsgeColor.green // -> 0xff008000;
+ * 
+ * // Getting the yellow color:
+ * dsge::dsgeColor.yellow // -> 0xff00ffff;
+ * ```
+ */
 extern color dsgeColor;
 
-// Represents the amount of time in milliseconds that passed since last frame.
+/**
+ * @brief Represents the amount of time in milliseconds that passed since last frame.
+ * 
+ * You cannot modify this, since it always updates the variable every `dsge::Render()`
+ * 
+ * #### Example Usage:
+ * ```
+ * // Run the rendering process
+ * dsge::Render([&]() {
+ *     // Do something
+ * });
+ * 
+ * print(dsge::elapsed); // Returns the amount of time in millis
+ * ```
+ */
 extern u64 elapsed;
 
 /**
  * @brief Current background hex color when using the dsge::Render function.
  * 
  * Be careful, if you are debugging and want to set the background color to white, the print output will blend with all of the whiteness! But not to fear, it'll output in the bottom screen instead.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Setting bgColor to something else:
+ * 
+ * dsge::bgColor = dsge::dsgeColor.red; // Sets color to red
+ * ```
  */
 extern u32 bgColor;
 
 /**
- * Initializes dsge and bring back the lives of your own 3DS Games.
+ * @brief Initializes dsge and bring back the lives of your own 3DS Games.
  * 
  * Note that if you try to initialize the same function again, there's likely bad things that is gonna happen so don't trigger twice!
+ * 
+ * #### Example Usage:
+ * ```
+ * #include <dsge.hpp>
+ * 
+ * int main() {
+ *     dsge::init(); // Here is where you init!
+ * 
+ *     // Rest of the functions below...
+ * }
+ * ```
  */
 void init();
 
 /**
- * Exits all of the needed libraries that DSGE needs
+ * @brief Exits all of the needed libraries that DSGE needs
  * 
- * Note that you must initialize this first, there's likely bad things that is gonna happen so don't trigger twice!
+ * Note that you must initialize this to the very last of `int main`, especially `return dsge::exit()`.
  * 
  * It always returns 0 no matter if it's a serious error.
+ * 
+ * #### Example Usage:
+ * ```
+ * #include <dsge.hpp>
+ * 
+ * int main() {
+ *     // Rest of the functions below...
+ * 
+ *     return dsge::exit(); // This is where you exit!
+ * }
+ * ```
  */
 int exit();
 
@@ -92,6 +148,29 @@ int exit();
  */
 bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2);
 
+/**
+ * @brief Starts a function rendering that starts rendering the 3DS's top screen with what sprite renders you want to use.
+ * 
+ * This can also render **debug** lines on the top left for clever lookarounds.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Test Sprite
+ * dsge::Sprite newSprite(0, 0);
+ * newSprite.makeGraphic(84, 84);
+ * 
+ * // Test Text
+ * dsge::Text newText(0, 0, "New Text!");
+ * 
+ * while (aptMainLoop()) {
+ *     // Now render all of it!
+ *     dsge::render([&]() {
+ *         newSprite.render();
+ *         newText.render();
+ *     });
+ * }
+ * ```
+ */
 void render(std::function<void()> function);
 
 // Public logging macro
@@ -102,10 +181,30 @@ void render(std::function<void()> function);
     #define print(message) ((void)0)
 #endif
 
-// Width of your 3DS
+/**
+ * @brief The current width of the 3DS.
+ * 
+ * #### Warning:
+ * NEVER EVER mess with this variable because it's use for screen center and a whole LOT more!! I suggest you to never set anything there.
+ * 
+ * #### Example Usage:
+ * ```
+ * print(dsge::WIDTH); // Returns int 400
+ * ```
+ */
 int WIDTH  = 400;
 
-// Height of your 3DS
+/**
+ * @brief The current height of the 3DS.
+ * 
+ * #### Warning:
+ * NEVER EVER mess with this variable because it's use for screen center and a whole LOT more!! I suggest you to never set anything there.
+ * 
+ * #### Example Usage:
+ * ```
+ * print(dsge::height); // Returns int 400
+ * ```
+ */
 int HEIGHT = 240;
 }
 
