@@ -119,11 +119,6 @@ void Text::render() {
     C2D_ViewScale(scX, scY);
 
     u32 col = applyAlpha(color, alpha);
-    
-    u32 flags = C2D_WithColor;
-    if (wordWrap) {
-        flags += C2D_WordWrap;
-    }
 
     // Draw border effects
     if (borderSize != 0) {
@@ -134,13 +129,13 @@ void Text::render() {
             case BS_Border: {
                 int offsets[8][2] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 for (int i = 0; i < 8; i++) {
-                    C2D_DrawText(&c2dText, flags, (offsets[i][0] * border), (offsets[i][1] * border), 0.5f, 1.0f, 1.0f, bCol);
+                    C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border), (offsets[i][1] * border), 0.5f, 1.0f, 1.0f, bCol);
                 }
                 break;
             }
             case BS_Shadow: {
                 for (int i = 1; i < (int)borderSize + 1; i++) {
-                    C2D_DrawText(&c2dText, flags, -i, i, 0.5f, 1.0f, 1.0f, bCol);
+                    C2D_DrawText(&c2dText, C2D_WithColor, -i, i, 0.5f, 1.0f, 1.0f, bCol);
                 }
                 break;
             }
@@ -150,7 +145,7 @@ void Text::render() {
     // Bold
     if (bold) {
         for (int i = 1; i < 3; i++) {
-            C2D_DrawText(&c2dText, flags, i, 0, 0.5f, 1.0f, 1.0f, col);
+            C2D_DrawText(&c2dText, C2D_WithColor, i, 0, 0.5f, 1.0f, 1.0f, col);
         }
     }
 
@@ -160,7 +155,7 @@ void Text::render() {
     }
 
     // Main text
-    C2D_DrawText(&c2dText, flags, 0, 0, 0.5f, 1.0f, 1.0f, col);
+    C2D_DrawText(&c2dText, C2D_WithColor, 0, 0, 0.5f, 1.0f, 1.0f, col);
 
     C2D_ViewRestore(&_private.matrix);
 }

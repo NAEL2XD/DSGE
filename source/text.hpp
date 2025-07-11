@@ -32,7 +32,6 @@ public:
     bool        underline;   // Underlined text
     bool        visible;     // Visibility flag
     float       width;       // Width of the text.
-    bool        wordWrap;    // Whetever if word wrapping is enabled or not. **`underline` may break if this is enabled!**
     int         x;           // X position
     int         y;           // Y position
 
