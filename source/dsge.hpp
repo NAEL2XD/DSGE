@@ -95,6 +95,23 @@ extern u64 elapsed;
 extern u32 bgColor;
 
 /**
+ * @brief Represents the amount of frames per second in total.
+ * 
+ * Maximum is 60 fps, counted if dsge::Render is used.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Run the rendering process
+ * dsge::Render([&]() {
+ *     // Do something
+ * });
+ * 
+ * print(dsge::FPS); // Get the amount of FPS!
+ * ```
+ */
+extern int FPS;
+
+/**
  * @brief Initializes dsge and bring back the lives of your own 3DS Games.
  * 
  * Note that if you try to initialize the same function again, there's likely bad things that is gonna happen so don't trigger twice!
@@ -124,7 +141,7 @@ void init();
  * #include <dsge.hpp>
  * 
  * int main() {
- *     // Rest of the functions below...
+ *     // Rest of the functions above...
  * 
  *     return dsge::exit(); // This is where you exit!
  * }
@@ -216,4 +233,5 @@ namespace dsge::_internal {
     extern std::vector<Text> _debugText;
     extern std::vector<u8> _debugCol;
     extern C3D_RenderTarget* top;
+    extern std::vector<u64> fpsCtr;
 }

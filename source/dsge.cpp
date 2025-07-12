@@ -9,11 +9,13 @@ namespace dsge {
 color dsgeColor;
 u64 elapsed;
 u32 bgColor;
+int FPS;
 
 namespace _internal {
     // Implementation details
     std::vector<Text> _debugText = {};
     std::vector<u8> _debugCol = {};
+    std::vector<u64> fpsCtr = {};
     C3D_RenderTarget* top = nullptr;
 
     void _logger(const std::string& message) {
@@ -98,6 +100,14 @@ void init() {
 void render(std::function<void()> function) {
     u64 start = osGetTime();
 
+    for (auto &&num : _internal::fpsCtr) {
+        if (num < start) {
+            _internal::fpsCtr.erase(_internal::fpsCtr.begin());
+        } else {
+            break;
+        }
+    }
+
     C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
     C2D_TargetClear(_internal::top, C2D_Color32(0, 0, 0, 0xFF));
     C2D_SceneBegin(_internal::top);
@@ -111,6 +121,9 @@ void render(std::function<void()> function) {
     #endif
     
     C3D_FrameEnd(0);
+
+    _internal::fpsCtr.push_back(osGetTime() + 1000);
+    FPS = _internal::fpsCtr.size() < 60 ? _internal::fpsCtr.size() : 60;
 
     elapsed = osGetTime() - start;
 }
