@@ -6,8 +6,8 @@ namespace dsge {
 namespace Applet {
 /**
  * @brief Sends a notification to 3ds's notification.
- * @param title The title to display to the top.
- * @param description The description to set as.
+ * @param title The title to display to the notification, maximum 96 characters.
+ * @param description The description to set as, maximum 2048 characters.
  * 
  * #### Example Usage:
  * ```
@@ -45,6 +45,7 @@ void popupError(errorConf errorCtx, std::string text);
  * 
  * This will use the SWKBD applet to launch the text and then return string inputted from the user.
  * 
+ * @param hintText The name hint of the text you want to use as, leave nothing for default.
  * @return String with text inputted to user.
  * 
  * #### Example Usage:
@@ -54,7 +55,7 @@ void popupError(errorConf errorCtx, std::string text);
  * print(newInput);
  * ```
  */
-std::string swkbdGetInput();
+std::string swkbdGetInput(std::string hintText = "Enter Text Here.");
 
 /**
  * @brief Opens an URL using the 3DS's internet browser method
@@ -67,7 +68,7 @@ std::string swkbdGetInput();
  * #### Example Usage:
  * ```
  * dsge::openURL("https://example.com"); // Opens an url being "https://example.com"
- * dsge::openURL(); // Also opens an url being "https://example.com" since it's their defaults
+ * dsge::openURL(); // Also opens an url being "https://example.com" since it's their default.
  * ```
  */
 void openURL(std::string url = "https://example.com");

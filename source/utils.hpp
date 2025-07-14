@@ -31,5 +31,17 @@ std::string readFile(const std::string& filePath);
  * ```
  */
 bool saveFile(const std::string& filePath, const std::string& content);
+
+/**
+ * @brief Returns a formatted byte sized string.
+ * @param byte The float amount you want to set as.
+ * @returns A formatted string exampling from `XBytes`, `XkB`, `XmB`, etc.
+ * 
+ * #### Example Usage:
+ * ```
+ * print(dsge::Utils::formatBytes(123456789)); // Returns 117MB
+ * ```
+ */
+std::string formatBytes(float byte);
 }
 }

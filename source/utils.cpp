@@ -30,5 +30,17 @@ bool saveFile(const std::string& filePath, const std::string& content) {
     file.close();
     return file.good();
 }
+
+std::string formatBytes(float byte) {
+    std::string units[6] = {"Bytes", "kB", "MB", "GB", "TB", "PB"};
+    int unit = 0;
+
+    while (byte >= 1024 && unit < 6) {
+        byte /= 1024;
+        unit++;
+    }
+
+    return std::to_string((int)byte) + units[unit];
+}
 }
 }

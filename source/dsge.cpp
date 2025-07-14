@@ -94,7 +94,6 @@ void init() {
     
     srand(time(NULL));
 
-    dsge::Sound::init();
     dsge::Text::init();
 }
 
@@ -157,7 +156,6 @@ bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2) {
 int exit() {
     // Free DS game engine resources FIRST!
     dsge::Text::exit();
-    dsge::Sound::exit();
 
     // Now shut down libraries (reverse order of init)
     C3D_Fini();

@@ -4,8 +4,8 @@ namespace dsge {
 namespace Applet {
 void sendNotification(std::string title, std::string description) {
     // Convert strings to UTF-16
-    u16 _title[64] = {0};
-    u16 _message[1024] = {0};
+    u16 _title[96] = {0};
+    u16 _message[2048] = {0};
     
     // Convert ASCII to UTF-16
     const char* ascii_title = title.c_str();
@@ -30,13 +30,13 @@ void popupError(errorConf errorCtx, std::string text) {
     errorDisp(&errorCtx);
 }
 
-std::string swkbdGetInput() {
+std::string swkbdGetInput(std::string hintText) {
     static char text[1024];
     SwkbdState swkbd;
 
     swkbdInit(&swkbd, SWKBD_TYPE_NORMAL, 1, -1);
 	swkbdSetFeatures(&swkbd, SWKBD_MULTILINE | SWKBD_DARKEN_TOP_SCREEN | SWKBD_FIXED_WIDTH);
-	swkbdSetHintText(&swkbd, "Enter Text Here.");
+	swkbdSetHintText(&swkbd, hintText.c_str());
     swkbdSetInitialText(&swkbd, text);
 	swkbdInputText(&swkbd, text, sizeof(text));
 
