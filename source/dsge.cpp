@@ -17,6 +17,7 @@ namespace _internal {
     std::vector<u8> _debugCol = {};
     std::vector<u64> fpsCtr = {};
     C3D_RenderTarget* top = nullptr;
+    C3D_RenderTarget* bot = nullptr;
 
     void _logger(const std::string& message) {
         std::cout << message << std::endl;
@@ -59,7 +60,6 @@ namespace _internal {
 
 void init() {
     gfxInitDefault();
-    consoleInit(GFX_BOTTOM, NULL);
     cfguInit();
     newsInit();
     romfsInit();
@@ -70,7 +70,8 @@ void init() {
 
     osSetSpeedupEnable(true);
 
-    _internal::top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
+    _internal::top = C2D_CreateScreenTarget(GFX_TOP,    GFX_LEFT);
+    _internal::bot = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
     
     dsgeColor.black       = 0xff000000;
     dsgeColor.blue        = 0xffff0000;
@@ -97,28 +98,31 @@ void init() {
     dsge::Text::init();
 }
 
-void render(std::function<void()> function) {
+void render(std::function<void()> topScr, std::function<void()> botScr) {
     u64 start = osGetTime();
 
-    for (auto &&num : _internal::fpsCtr) {
-        if (num < start) {
-            _internal::fpsCtr.erase(_internal::fpsCtr.begin());
-        } else {
-            break;
-        }
+    while (_internal::fpsCtr.size() != 0 && _internal::fpsCtr[0] < start) {
+        _internal::fpsCtr.erase(_internal::fpsCtr.begin());
     }
 
     C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
-    C2D_TargetClear(_internal::top, C2D_Color32(0, 0, 0, 0xFF));
+    C2D_TargetClear(_internal::top, 0xFF000000);
     C2D_SceneBegin(_internal::top);
-
     C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
 
-    function();
+    topScr();
 
     #if defined(DEBUG)
     _internal::_renderDebugText();
     #endif
+
+    if (botScr != nullptr) {
+        C2D_TargetClear(_internal::bot, 0xFF000000);
+        C2D_SceneBegin(_internal::bot);
+        C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
+
+        botScr();
+    }
     
     C3D_FrameEnd(0);
 

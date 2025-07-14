@@ -8,9 +8,11 @@ typedef enum {
 } bStyle;
 
 typedef enum {
-    ALIGN_LEFT = 0,
-    ALIGN_CENTER = 1,
-    ALIGN_RIGHT = 2
+    ALIGN_LEFT = 0,          // Left alignment for both top and bottom screen.
+    ALIGN_CENTER = 1,       // Centered alignment for the top screen.
+    ALIGN_RIGHT = 2,       // Right alignment for the top screen.
+    ALIGN_CENTER_BOT = 3, // Centered alignment for the bottom screen.
+    ALIGN_RIGHT_BOT = 4, // Right alignment for the bottom screen.
 } align;
 
 namespace dsge {

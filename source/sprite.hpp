@@ -3,14 +3,17 @@
 #include <string>
 
 typedef enum {
-    AXES_X = 0,
-    AXES_Y = 1,
-    AXES_XY = 2
+    AXES_X      = 0, // X Axes for the Top Screen.
+    AXES_Y      = 1, // Y Axes for the Top Screen.
+    AXES_XY     = 2, // Both Axes for the Top Screen.
+    AXES_X_BOT  = 3, // X Axes for the Bottom Screen.
+    AXES_XY_BOT = 4  // Both Axes for the Bottom Screen.
 } axes;
 
 namespace dsge {
 class Sprite {
 public:
+    float alpha;    // Alpha transparency (0 = invisible, 1 = fully visible)
     float angle;    // Rotation angle.
     u32   color;    // Sprite color.
     bool  flipX;    // Horizontal flip.
@@ -25,6 +28,7 @@ public:
         C2D_Image image;
         C2D_SpriteSheet sprite;
         bool destroyed;
+        C2D_ImageTint tint;
     } _private;
 
     struct {

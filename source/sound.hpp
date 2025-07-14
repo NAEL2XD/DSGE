@@ -66,10 +66,11 @@ void resume(int channel);
  * 
  * // Replaying a sound even if it doesn't exist anymore:
  * std::string sound = "sound.ogg";
- * channel = dsge::Sound::play("sound.ogg");
+ * int channel = dsge::Sound::play("sound.ogg");
  * 
  * dsge::Timer::start(5, [&]() {
  *     if (!dsge::Sound::replay(channel)) {
+ *         // Resetting the channel to the channel player.
  *         channel = dsge::Sound::play(sound);
  *     }
  * });

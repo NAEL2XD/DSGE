@@ -2,7 +2,8 @@
 #include "dsge.hpp"
 
 namespace dsge {
-Sprite::Sprite(int x, int y) :
+Sprite::Sprite(int x, int y):
+    alpha(1),
     angle(0),
     color(0xFFFFFFFF),
     flipX(false),
@@ -14,7 +15,7 @@ Sprite::Sprite(int x, int y) :
     scale{1, 1},
     acceleration{0, 0}
 {
-    _private.image = { NULL, NULL };
+    _private.image  = { NULL, NULL };
     _private.sprite = NULL;
     _private.destroyed = false;
 }
@@ -49,20 +50,16 @@ void Sprite::makeGraphic(int width, int height, u32 color) {
 void Sprite::screenCenter(axes pos) {
     if (_private.destroyed) return;
 
-    float newX = ((dsge::WIDTH - width) / 2) + (width / 2);
-    float newY = ((dsge::HEIGHT - height) / 2) + (height / 2);
+    float newX = (dsge::WIDTH - width) / 2;
+    float newY = (dsge::HEIGHT - height) / 2;
+    float newB = (dsge::WIDTH_BOTTOM - width) / 2;
 
     switch(pos) {
-        case AXES_X: {
-            x = newX;
-        }
-        case AXES_Y: {
-            y = newY;
-        }
-        case AXES_XY: {
-            x = newX;
-            y = newY;
-        }
+        case AXES_X:      x = newX; break;
+        case AXES_Y:      y = newY; break;
+        case AXES_XY:     x = newX; y = newY; break;
+        case AXES_X_BOT:  x = newB; break;
+        case AXES_XY_BOT: x = newB; y = newY; break;
     }
 }
 
@@ -88,11 +85,20 @@ void Sprite::render() {
     y += acceleration.y;
     
     if (_private.image.tex != NULL) {
-        C2D_DrawImageAtRotated(_private.image, x, y, 0, Math::angleToRadians(angle), NULL, scX, scY);
+        float newAlpha = alpha >= 1 ? 1 : alpha <= 0 ? 0 : alpha;
+
+        C2D_PlainImageTint(&_private.tint, C2D_Color32((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, ((color >> 24) & 0xFF) * newAlpha), 0.0f);
+
+        C2D_DrawImageAtRotated(_private.image, x, y, 0, Math::angleToRadians(angle), &_private.tint, scX, scY);
     } else {
-        float renderWidth = width * fabsf(scX);
-        float renderHeight = height * fabsf(scY);
-        C2D_DrawRectSolid(x, y, 0, renderWidth, renderHeight, color);
+        u32 finalColor = color;
+        if (alpha < 1.0f) {
+            u8 a = (color >> 24) & 0xFF;
+            a = static_cast<u8>(a * alpha);
+            finalColor = (color & 0x00FFFFFF) | (a << 24);
+        }
+
+        C2D_DrawRectSolid(x, y, 0, width * fabsf(scX), height * fabsf(scY), finalColor);
     }
 }
 
@@ -103,7 +109,6 @@ void Sprite::destroy() {
         C2D_SpriteSheetFree(_private.sprite);
         _private.sprite = nullptr;
     }
-
     acceleration = {0, 0};
     angle = 0;
     color = 0;

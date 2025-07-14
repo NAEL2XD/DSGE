@@ -166,9 +166,17 @@ int exit();
 bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2);
 
 /**
- * @brief Starts a function rendering that starts rendering the 3DS's top screen with what sprite renders you want to use.
+ * @brief Starts a function rendering that starts rendering the 3DS's top screen and bottom screen with what sprite renders you want to use.
  * 
- * This can also render **debug** lines on the top left for clever lookarounds.
+ * This can also render **debug** lines on the top left for clever lookarounds, if you have DEBUG defined, and not used `std::cout` or `printf` and just used `print` instead.
+ * 
+ * @param topScr The Top Screen to render.
+ * @param botScr *(Optional)* The Bottom Screen to render, leave nothing or nullptr to not render the bottom screen.
+ * 
+ * #### Warning:
+ * If the `botScr` actually initializes a function and there are renders in there, it will shift's x axis by 1.25x! Only if it's screen centered or aligned to center/right.
+ * 
+ * If you use centered or right, please use the `_BOT` enum version!
  * 
  * #### Example Usage:
  * ```
@@ -180,15 +188,24 @@ bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2);
  * dsge::Text newText(0, 0, "New Text!");
  * 
  * while (aptMainLoop()) {
- *     // Now render all of it!
+ *     // Now render all of it! In the top screen.
  *     dsge::render([&]() {
+ *         newSprite.render();
+ *         newText.render();
+ *     });
+ * 
+ *     // Both top and bottom
+ *     dsge::render([&]() {
+ *         newSprite.render();
+ *         newText.render();
+ *     }, [&]() {
  *         newSprite.render();
  *         newText.render();
  *     });
  * }
  * ```
  */
-void render(std::function<void()> function);
+void render(std::function<void()> topScr, std::function<void()> botScr = nullptr);
 
 // Public logging macro
 #if defined(DEBUG)
@@ -225,6 +242,20 @@ int WIDTH  = 400;
  * ```
  */
 int HEIGHT = 240;
+
+/**
+ * @brief The current width of the bottom screen for the 3DS.
+ * 
+ * #### Warning:
+ * 
+ * NEVER EVER mess with this variable because it's use for screen center and a whole LOT more!! I suggest you to never set anything there.
+ * 
+ * #### Example Usage:
+ * ```
+ * print(dsge::WIDTH_BOTTOM); // Returns int 320
+ * ```
+ */
+int WIDTH_BOTTOM = 320;
 }
 
 // Implementation details (in header but not exposed in namespace)

@@ -71,11 +71,14 @@ void Text::screenCenter(axes pos) {
 
     float newX = (dsge::WIDTH  - width) / 2;
     float newY = (dsge::HEIGHT - height) / 2;
+    float newB = (dsge::WIDTH_BOTTOM - width) / 2;
 
     switch(pos) {
-        case AXES_X:   x = newX; break;
-        case AXES_Y:   y = newY; break;
-        case AXES_XY:  x = newX; y = newY; break;
+        case AXES_X:  x = newX; break;
+        case AXES_Y:  y = newY; break;
+        case AXES_XY: x = newX; y = newY; break;
+        case AXES_X_BOT:  x = newB; break;
+        case AXES_XY_BOT: x = newB; y = newY; break;
     }
 }
 
@@ -106,9 +109,11 @@ void Text::render() {
     float newX = x;
     if (!debug) {
         switch (alignment) {
-            case ALIGN_LEFT:   break; // No change
-            case ALIGN_CENTER: newX += (dsge::WIDTH - width) / 2; break;
-            case ALIGN_RIGHT:  newX += dsge::WIDTH - width; break;
+            case ALIGN_LEFT:       break; // No change
+            case ALIGN_CENTER:     newX += (dsge::WIDTH - width) / 2; break;
+            case ALIGN_RIGHT:      newX += dsge::WIDTH - width; break;
+            case ALIGN_CENTER_BOT: newX = (dsge::WIDTH_BOTTOM - width) / 2; break;
+            case ALIGN_RIGHT_BOT:  newX = dsge::WIDTH_BOTTOM - width; break;
         }
     }
 
