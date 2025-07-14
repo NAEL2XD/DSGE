@@ -43,5 +43,22 @@ bool saveFile(const std::string& filePath, const std::string& content);
  * ```
  */
 std::string formatBytes(float byte);
+
+/**
+ * @brief Returns the fomatted time from the `ms` arg.
+ * 
+ * You can add any amount of precision if you want, suggested to be 0 for less CPU work.
+ * 
+ * @param ms The amount milliseconds to add as.
+ * @param precision The very amount of precision to use, more means more decimals.
+ * @returns A formatted time string `XX:XX.XX`
+ * 
+ * #### Example Usage:
+ * ```
+ * print(dsge::Utils::formatTime(6000)); // Returns 0:06
+ * print(dsge::Utils::formatTime(1234567, 2)); // Returns 20:34.123400
+ * ```
+ */
+std::string formatTime(float ms, int precision = 0);
 }
 }

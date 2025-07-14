@@ -238,7 +238,7 @@ int WIDTH  = 400;
  * 
  * #### Example Usage:
  * ```
- * print(dsge::height); // Returns int 400
+ * print(dsge::height); // Returns int 240
  * ```
  */
 int HEIGHT = 240;

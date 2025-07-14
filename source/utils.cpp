@@ -42,5 +42,33 @@ std::string formatBytes(float byte) {
 
     return std::to_string((int)byte) + units[unit];
 }
+
+std::string formatTime(float ms, int precision) {
+    int total = static_cast<int>(ms / 1000);
+    
+    int seconds = total % 60;
+    int minutes = (total / 60) % 60;
+    int hours = total / 3600;
+
+    std::string secs = (seconds < 10) ? "0" + std::to_string(seconds) : std::to_string(seconds);
+    std::string mins = (hours > 0) ? "0" + std::to_string(minutes) : std::to_string(minutes);
+    std::string out = mins + ":" + secs;
+
+    if (hours > 0) {
+        out = std::to_string(hours) + ":" + out;
+    }
+    
+    if (precision > 0) {
+        std::string precision_str = std::to_string(static_cast<int>(total * std::pow(10, precision)));
+        if (precision_str.length() < static_cast<size_t>(precision)) {
+            precision_str = std::string(precision - precision_str.length(), '0') + precision_str;
+        }
+        
+        precision_str = precision_str.replace(precision, precision_str.length(), "");
+        out += "." + precision_str;
+    }
+
+    return out;
+}
 }
 }
