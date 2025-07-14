@@ -36,11 +36,11 @@ double distanceBetween(dsge::Sprite spriteA, dsge::Sprite spriteB);
  * 
  * #### Example Usage:
  * ```
- * dsge::Math::lerp(0.0f, 10.0f, 0.0f);   // Returns 0.0f
- * dsge::Math::lerp(0.0f, 10.0f, 0.5f);   // Returns 5.0f
- * dsge::Math::lerp(0.0f, 10.0f, 1.0f);   // Returns 10.0f
- * dsge::Math::lerp(10.0f, 20.0f, 0.25f); // Returns 12.5f
- * dsge::Math::lerp(5.0f, -5.0f, 0.5f);   // Returns 0.0f
+ * dsge::Math::lerp(0, 10, 0);   // Returns 0.0
+ * dsge::Math::lerp(0, 10, 0.5);   // Returns 5.0
+ * dsge::Math::lerp(0, 10, 1);   // Returns 10.0
+ * dsge::Math::lerp(10, 20, 0.25); // Returns 12.5
+ * dsge::Math::lerp(5, -5, 0.5);   // Returns 0.0
  * ```
  */
 float lerp(float a, float b, float t);

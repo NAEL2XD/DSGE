@@ -40,7 +40,7 @@ void Text::createText() {
 
 Text::Text(int x, int y, const std::string& Text) :
     alignment(ALIGN_LEFT),
-    alpha(1.0f),
+    alpha(1),
     angle(0),
     borderStyle(BS_Border),
     bold(false),
@@ -57,7 +57,7 @@ Text::Text(int x, int y, const std::string& Text) :
     width(0),
     x(x), y(y),
     acceleration{0, 0},
-    scale{1.0f, 1.0f}
+    scale{1, 1}
 {
     _private.debug = false;
     _private.destroyed = false;
@@ -128,13 +128,13 @@ void Text::render() {
             case BS_Border: {
                 int offsets[8][2] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 for (int i = 0; i < 8; i++) {
-                    C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border), (offsets[i][1] * border), 0.5f, 1.0f, 1.0f, bCol);
+                    C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border), (offsets[i][1] * border), .5, 1, 1, bCol);
                 }
                 break;
             }
             case BS_Shadow: {
                 for (int i = 1; i < (int)borderSize + 1; i++) {
-                    C2D_DrawText(&c2dText, C2D_WithColor, -i, i, 0.5f, 1.0f, 1.0f, bCol);
+                    C2D_DrawText(&c2dText, C2D_WithColor, -i, i, .5, 1, 1, bCol);
                 }
                 break;
             }
@@ -144,17 +144,17 @@ void Text::render() {
     // Bold
     if (bold) {
         for (int i = 1; i < 3; i++) {
-            C2D_DrawText(&c2dText, C2D_WithColor, i, 0, 0.5f, 1.0f, 1.0f, col);
+            C2D_DrawText(&c2dText, C2D_WithColor, i, 0, 0, 1, 1, col);
         }
     }
 
     // Underline
     if (underline) {
-        C2D_DrawRectSolid(width + 2, height, 0.5f, width, 1.0f, col);
+        C2D_DrawRectSolid(width + 2, height, .5, width, 1, col);
     }
 
     // Main text
-    C2D_DrawText(&c2dText, C2D_WithColor, 0, 0, 0.5f, 1.0f, 1.0f, col);
+    C2D_DrawText(&c2dText, C2D_WithColor, 0, 0, .5, 1, 1, col);
 
     C2D_ViewRestore(&_private.matrix);
 }

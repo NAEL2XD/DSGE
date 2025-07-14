@@ -61,7 +61,7 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
     std::thread([&target, properties, duration, ease]() {
         using namespace std::chrono;
         auto start_time = steady_clock::now();
-        float elapsed = 0.0f;
+        float elapsed = 0;
         
         // Store initial values
         std::map<std::string, float> start_values;
@@ -74,12 +74,11 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
             else if (prop.first == "scale.y") start_values["scale.y"] = target.scale.y;
             else if (prop.first == "color") start_values["color"] = static_cast<float>(target.color);
             else if (prop.first == "angle") start_values["angle"] = target.angle;
-            else if (prop.first == "alpha") start_values["alpha"] = target.alpha;
         }
 
         // Tween loop
         while (elapsed < duration) {
-            elapsed = duration_cast<milliseconds>(steady_clock::now() - start_time).count() / 1000.0f;
+            elapsed = duration_cast<milliseconds>(steady_clock::now() - start_time).count() / 1000;
             float linear_progress = std::min(elapsed / duration, 1.0f);
             float eased_progress = applyEase(linear_progress, ease);
 
@@ -97,8 +96,6 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
                     target.color = lerpColor(start_color, end_color, eased_progress);
                 } else if (prop.first == "angle") {
                     target.angle = lerp(start_values["angle"], prop.second, eased_progress);
-                } else if (prop.first == "alpha") {
-                    target.alpha = lerp(start_values["alpha"], prop.second, eased_progress);
                 }
             }
 
@@ -113,7 +110,6 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
             else if (prop.first == "scale.y") target.scale.y = prop.second;
             else if (prop.first == "color") target.color = static_cast<u32>(prop.second);
             else if (prop.first == "angle") target.angle = prop.second;
-            else if (prop.first == "alpha") target.alpha = prop.second;
         }
 
 

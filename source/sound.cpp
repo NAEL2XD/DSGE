@@ -135,7 +135,7 @@ bool replay(int channel) {
     ndspChnSetPaused(channel, true);
 
     // Reset/rewind vorbis file to beginning
-    int res = ov_time_seek(&ch->vorbisFile, 0.0);
+    int res = ov_time_seek(&ch->vorbisFile, 0);
     if (res != 0) {
         print("[WARN] Sound::replay: Failed to seek to start (error " + std::to_string(res) + ": " + vorbisStrError(res) + ")");
         ndspChnSetPaused(channel, false);

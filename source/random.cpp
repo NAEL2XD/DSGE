@@ -16,9 +16,9 @@ float floating(float min, float max, int decimal) {
     if (min == max) return min;
     
     // Calculate scaling factor for decimals
-    float factor = 1.0f;
+    float factor = 1;
     if (decimal > 0) {
-        factor = powf(10.0f, (float)decimal);
+        factor = powf(10, (float)decimal);
     }
     
     // Generate Random float in range

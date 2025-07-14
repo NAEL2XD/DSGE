@@ -20,12 +20,12 @@ namespace Timer {
  * #### Example Code:
  * ```
  * // One-time timer
- * DSGE::TIMER::start(2.5f, []() {
+ * DSGE::TIMER::start(2.5, []() {
  *     print("Timer done!");
  * });
  * 
  * // Repeating timer
- * DSGE::TIMER::start(1.0f, []() {
+ * DSGE::TIMER::start(1, []() {
  *     print("Ping!");
  * }, 5); // Repeat 5 times
  * ```

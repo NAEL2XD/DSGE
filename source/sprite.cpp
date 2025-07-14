@@ -11,7 +11,7 @@ Sprite::Sprite(int x, int y) :
     visible(true),
     width(0),
     x(x), y(y),
-    scale{1.0f, 1.0f},
+    scale{1, 1},
     acceleration{0, 0}
 {
     _private.image = { NULL, NULL };
@@ -105,7 +105,7 @@ void Sprite::destroy() {
     }
 
     acceleration = {0, 0};
-    angle = 0.0f;
+    angle = 0;
     color = 0;
     flipX = false;
     flipY = false;
