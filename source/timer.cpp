@@ -15,7 +15,7 @@ void start(float seconds, std::function<void()> callback, int loops) {
         
         for (int i = 0; i < loops; i++) {
             // Sleep for the specified duration
-            svcSleepThread(100000000 * seconds);
+            svcSleepThread(1000000000 * seconds);
             
             // Execute the callback
             callback();

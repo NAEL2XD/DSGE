@@ -2,6 +2,10 @@
     DSGE, A very easy way to make 3DS GAMES
 </h1>
 
+<h6 align="center">
+    Dead Simple Game Engine
+</h6>
+
 > [!WARNING] 
 > DSGE is still in developement, not many functions in DSGE is included and sometimes can take hours to implement just for a single function, you may also experience bugs from DSGE and i'm working hard to fix any bugs before pushing to release!
 
@@ -11,6 +15,8 @@ It's yet another 3DS Library made using C++, it's mission is to make DSGE a whol
 It's current working features are:
 - Playing sounds.
 - Customizable Text and Sprite.
+- Tweening and Easing
+- Timer stuff
 - Lotta extra stuff.
 
 #### Installation
@@ -32,4 +38,4 @@ Upon finishing the installation for devkitPro, you can start with DSGE installat
 9. Go back 1 folder and double click on `run.bat` file and if everything should be working it should 1. launch output.3dsx by any of the emulators, or 2. it should be in the `build` and `3dsxbackups` folder..
 
 > [!NOTE] 
-> If you noticed the 3DSX file size being large when that hpp is placed, it's because of so many things to implement in a single file (lotta functions), this is normal.
+> If you noticed the 3DSX file size being larger when that library is placed, it's because of so many things to implement in a single file (lotta functions from libctru/citro2d), this is normal.
