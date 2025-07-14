@@ -4,9 +4,9 @@
 namespace dsge {
 namespace Utils {
 std::string readFile(const std::string& filePath) {
-    std::ifstream file("romfs:/" + filePath); // Open the file
+    std::ifstream file(filePath); // Open the file
     if (!file.is_open()) {
-        print("Utils::readFile: Could not open file: romfs:/" + filePath);
+        print("Utils::readFile: Could not open file: " + filePath);
         return "";
     }
 
@@ -22,7 +22,7 @@ std::string readFile(const std::string& filePath) {
 bool saveFile(const std::string& filePath, const std::string& content) {
     std::ofstream file("sdmc:/" + filePath);
     if (!file.is_open()) {
-        print("Utils::saveFile: Could not open file: sdmc:/" + filePath);
+        print("Utils::saveFile: Could not save file: sdmc:/" + filePath);
         return false;
     }
 

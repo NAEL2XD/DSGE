@@ -3,9 +3,12 @@
 namespace dsge {
 namespace Utils {
 /**
- * @brief Returns the file read from `romfs:/`.
- * @param filePath The file to read to, do not include `romfs:/`.
+ * @brief Returns the file read from `sdmc:/` or `romfs:/`.
+ * @param filePath The file to read to.
  * @returns The content from the file read.
+ * 
+ * #### Note:
+ * In the `filePath` argument, it must ALWAYS start with `romfs:/` (Aseets, Sounds, etc.) or `sdmc:/` (Saves, Datas, etc.)
  * 
  * #### Example Usage:
  * ```
@@ -17,7 +20,7 @@ std::string readFile(const std::string& filePath);
 
 /**
  * @brief Saves a content through sdmc:/.
- * @param filePath The path to save as, do not include `sdmc:/`.
+ * @param filePath The path to save as, do not include `sdmc:/` since it can't be saved in a romfs.
  * @param content The content to save as, can be anything like totally.
  * @returns `true` if file is saved successfully, `false` if the file is badly saved.
  * 
