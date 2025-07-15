@@ -32,10 +32,9 @@ Upon finishing the installation for devkitPro, you can start with DSGE installat
 3. Open the downloaded output, (eg: The downloads folder)
 4. Extract and open the downloaded directory.
 5. Assuming you have Python installed, in the directory location, press and type `cmd`.
-6. In the CLI, type `python amalgamate.py -c c.json -s ""`, it should generate a dsge.hpp file.
-7. Copy the `dsge.hpp` file.
-8. Go to `examples`, `template` and `source` folder, and paste the file.
-9. Go back 1 folder and double click on `run.bat` file and if everything should be working it should 1. launch output.3dsx by any of the emulators, or 2. it should be in the `build` and `3dsxbackups` folder..
+6. *(OPTIONAL, YOU CAN USE EXAMPLES/TEMPLATE, skip to step 8)* In the CLI, type `python template.py`, it should generate a template folder to set up.
+7. *(OPTIONAL)* Go to the `template` folder
+8. Double click on `run.bat` file and if everything should be working it should 1. launch output.3dsx by any of the emulators, or 2. it should be in the `build` and `3dsxbackups` folder..
 
 > [!NOTE] 
 > If you noticed the 3DSX file size being larger when that library is placed, it's because of so many things to implement in a single file (lotta functions from libctru/citro2d), this is normal.

@@ -1,8 +1,8 @@
 /*
     DSGE Template
-    First off, initialize dsge.hpp, if you don't have it then download the "dsge.hpp" in the root of this repo.
+    First off, initialize dsge.hpp, if you don't have it then run the "template.py" in the root of this repo.
 */
-#include "dsge.hpp"
+#include "dsge/dsge.hpp"
 
 // Template main function.
 int main() {

@@ -36,7 +36,7 @@ APP_DESCRIPTION := First Homebrew Game using DSGE!!
 APP_AUTHOR      := Author
 
 BUILD       := build
-SOURCES     := source
+SOURCES     := source source/dsge
 DATA        := data
 INCLUDES    := include
 GRAPHICS    := gfx

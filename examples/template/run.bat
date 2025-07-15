@@ -10,9 +10,6 @@ set MAKE3DSXBACKUP=1
 :: 1 for yes, any for no.
 set DELETEBACKUPSFIRST=1
 
-:: Whatever or not you wanna update DSGE
-set UPDATEDSGE=0
-
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 set tdsx=3dsx_backups
 
@@ -31,13 +28,6 @@ cls
 ECHO ======================================================================
 ECHO Building...
 ECHO == COMMAND OUTPUT ====================================================
-
-if %UPDATEDSGE% == 1 (
-	REM Please update to your path please.
-	REM cd C:\devkitPro\examples\3dsge
-	REM python amalgamate.py -c c.json -s ""
-	REM xcopy dsge.hpp "C:\devkitPro\examples\Demo\source\dsge.hpp" /Y
-)
 
 cd /d %~dp0
 make
