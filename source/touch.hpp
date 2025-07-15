@@ -82,5 +82,26 @@ u16 getTouchX();
  * 
  */
 u16 getTouchY();
+
+/**
+ * @brief Returns whetever if the sprite is being touched.
+ * @param obj1 The object sprite to check.
+ * @returns `true` if touching, `false` otherwise.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Create sprite
+ * dsge::Sprite obj(0, 0);
+ * obj.makeGraphic(120, 120);
+ * 
+ * // Touching sprite
+ * if (dsge::Touch::isTouching(obj)) {
+ *     print("Touching!");
+ * } else {
+ *     print("Not Touching!");
+ * }
+ * ```
+ */
+bool isTouching(dsge::Sprite* obj1);
 }
 }

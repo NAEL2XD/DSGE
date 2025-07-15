@@ -94,6 +94,17 @@ bool Text::isOnScreen() {
     return !(x + width < 0 || x > dsge::WIDTH || y + height < 0 || y > dsge::HEIGHT);
 }
 
+bool Text::loadFont(std::string filePath) {
+    std::string fullPath = "romfs:/" + filePath;
+
+    if (!std::filesystem::exists(fullPath)) {
+        print("[WARN] Text::loadFont: File Path doesn't exist: " + fullPath);
+        return false;
+    }
+
+    return (font = C2D_FontLoad(fullPath.c_str())) != NULL;
+}
+
 void Text::render() {
     if (_private.destroyed || !visible || text.empty() || !isOnScreen()) return;
 

@@ -5,7 +5,7 @@
 namespace dsge {
 namespace Random {
 /**
- * @brief Returns a pseudorandom integer between Min and Max.
+ * @brief Returns a pseudorandom integer between min and max.
  * @param min The minimum value that should be returned. 1 by default.
  * @param max The maximum value that should be returned. 2,147,483,647 by default.
  * @return A Random number depending on the arguments.

@@ -5,9 +5,9 @@
 namespace dsge {
 namespace Applet {
 /**
- * @brief Sends a notification to 3ds's notification.
+ * @brief Sends a notification to the Applet and makes a blinking blue LED.
  * @param title The title to display to the notification, maximum 96 characters.
- * @param description The description to set as, maximum 2048 characters.
+ * @param description The description to display as the information, maximum 2048 characters.
  * 
  * #### Example Usage:
  * ```
@@ -17,10 +17,10 @@ namespace Applet {
 void sendNotification(std::string title, std::string description);
 
 /**
- * @brief Displays a error popup with custom text
+ * @brief Displays a error popup with custom text and customizable context.
  *     
- * @param errorCtx errorConf struct to use.
- * @param text Error message to display (ASCII).
+ * @param errorCtx Styled configuration of error to use.
+ * @param text Error message to display as the big text box.
  * 
  * #### errorCtx Usage:
  * ```
@@ -41,11 +41,11 @@ void sendNotification(std::string title, std::string description);
 void popupError(errorConf errorCtx, std::string text);
 
 /**
- * @brief Reads the input text from user and returns the string result.
+ * @brief Reads the input text from the user and returns the result from the SWKBD.
  * 
  * This will use the SWKBD applet to launch the text and then return string inputted from the user.
  * 
- * @param hintText The name hint of the text you want to use as, leave nothing for default.
+ * @param hintText The hint name of the text you want to use as, leave nothing for `"Enter Text Here."`.
  * @return String with text inputted to user.
  * 
  * #### Example Usage:
@@ -58,7 +58,7 @@ void popupError(errorConf errorCtx, std::string text);
 std::string swkbdGetInput(std::string hintText = "Enter Text Here.");
 
 /**
- * @brief Opens an URL using the 3DS's internet browser method
+ * @brief Opens an URL using the 3DS's internet browser method.
  * @param url The url to open as, can be nothing for `"https://example.com"`
  * 
  * #### Note:

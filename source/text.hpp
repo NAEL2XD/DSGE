@@ -1,5 +1,6 @@
 #include <citro2d.h>
 #include <string>
+#include <filesystem>
 #include "sprite.hpp"
 
 typedef enum {
@@ -111,6 +112,28 @@ public:
      * ```
      */
     bool isOnScreen();
+
+    /**
+     * @brief Loads a new font in `romfs:/` without the prefix.
+     * @param filePath The file path to load as (e.g. vcr.bcfnt)
+     * @returns `true` if loaded successfully, `false` otherwise.
+     * 
+     * #### Example Usage:
+     * ```
+     * // Assuming you have a font.
+     * dsge::Text newText(0, 0, "New Font!");
+     * if (newText.loadFont("vcr.bcfnt")) {
+     *     print("Success!");
+     * } else {
+     *     print("Failure...");
+     * }
+     * 
+     * // Assuming you want to use the note from a variable, this does not need to be used:
+     * C2D_Font fnt = C2D_FontLoad("romfs:/vcr.bcfnt");
+     * newText.font = fnt;
+     * ```
+     */
+    bool loadFont(std::string filePath);
 
     /**
      * @brief Renders the Text (must be in a rendering frame)

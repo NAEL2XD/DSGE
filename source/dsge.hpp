@@ -174,9 +174,12 @@ bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2);
  * @param botScr *(Optional)* The Bottom Screen to render, leave nothing or nullptr to not render the bottom screen.
  * 
  * #### Warning:
+ * 
  * If the `botScr` actually initializes a function and there are renders in there, it will shift's x axis by 1.25x! Only if it's screen centered or aligned to center/right.
  * 
  * If you use centered or right, please use the `_BOT` enum version!
+ * 
+ * Render the sprites FIRST then render the text!!! if you don't do that in that order the text will overwrite things making it look ugly.
  * 
  * #### Example Usage:
  * ```

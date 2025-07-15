@@ -27,6 +27,10 @@ public:
      * @brief Constructs a Sound object and loads the specified audio file
      * @param path Path to the Ogg Vorbis file in romfs (e.g., "sounds/effect.ogg")
      * 
+     * #### FFMPEG Conversion Command:
+     * 
+     * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 -b:a 96k output.ogg`
+     * 
      * #### Example Usage:
      * ```
      * // Load a sound from romfs:/sounds/effect.ogg

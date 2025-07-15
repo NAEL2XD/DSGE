@@ -5,7 +5,6 @@
 #define col(a) 255 | (255 << (u32)8) | (255 << (u32)16) | (a << (u32)24)
 
 namespace dsge {
-// Public exports
 color dsgeColor;
 u64 elapsed;
 u32 bgColor;
