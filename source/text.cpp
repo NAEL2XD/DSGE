@@ -40,7 +40,7 @@ Text::Text(int x, int y, const std::string& Text) :
     alignment(ALIGN_LEFT),
     alpha(1),
     angle(0),
-    borderStyle(BS_Border),
+    borderStyle(BS_BORDER),
     bold(false),
     borderColor(0xFF000000),
     borderSize(0),
@@ -140,14 +140,14 @@ void Text::render() {
         u32 bCol = applyAlpha(borderColor, alpha);
         
         switch (borderStyle) {
-            case BS_Border: {
+            case BS_BORDER: {
                 int offsets[8][2] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 for (int i = 0; i < 8; i++) {
                     C2D_DrawText(&c2dText, C2D_WithColor, (offsets[i][0] * border), (offsets[i][1] * border), .5, 1, 1, bCol);
                 }
                 break;
             }
-            case BS_Shadow: {
+            case BS_SHADOW: {
                 for (int i = 1; i < (int)borderSize + 1; i++) {
                     C2D_DrawText(&c2dText, C2D_WithColor, -i, i, .5, 1, 1, bCol);
                 }
@@ -185,7 +185,7 @@ void Text::destroy() {
     alignment = ALIGN_LEFT;
     alpha = 0;
     angle = 0;
-    borderStyle = BS_Border;
+    borderStyle = BS_BORDER;
     bold = false;
     borderColor = 0;
     borderSize = 0;

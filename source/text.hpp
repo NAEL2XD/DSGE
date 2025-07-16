@@ -7,50 +7,26 @@
 #include <filesystem>
 
 namespace dsge {
-    typedef enum {
-        BS_Border = 0,
-        BS_Shadow = 1
-    } bStyle;
-
-    typedef enum {
-        AXES_X = 0,          // X axis only
-        AXES_Y = 1,          // Y axis only
-        AXES_XY = 2,         // Both X and Y axes
-        AXES_X_BOT = 3,      // X axis for bottom screen
-        AXES_Y_BOT = 4,      // Y axis for bottom screen
-        AXES_XY_BOT = 5      // Both axes for bottom screen
-    } axes;
-
-    typedef enum {
-        ALIGN_LEFT = 0,          // Left alignment for both top and bottom screen
-        ALIGN_CENTER = 1,        // Centered alignment for the top screen
-        ALIGN_RIGHT = 2,         // Right alignment for the top screen
-        ALIGN_CENTER_BOT = 3,    // Centered alignment for the bottom screen
-        ALIGN_RIGHT_BOT = 4      // Right alignment for the bottom screen
-    } align;
-}
-
-namespace dsge {
 class Text {
 public:
-    align       alignment;   // The alignment to set for the text.
-    float       alpha;       // Alpha transparency (0 = invisible, 1 = fully visible)
-    float       angle;       // Angular rotation in degrees.
-    bStyle      borderStyle; // Style of the border, can be `BS_Border` or `BS_Shadow`.
-    bool        bold;        // Bold flag
-    u32         borderColor; // Border color
-    float       borderSize;  // Border size
-    u32         color;       // Text color
-    bool        flipX;       // Horizontal flip.
-    bool        flipY;       // Vertical flip.
-    C2D_Font    font;        // Font to use
-    float       height;      // Height of the text.
-    std::string text;        // Text content
-    bool        underline;   // Underlined text
-    bool        visible;     // Visibility flag
-    float       width;       // Width of the text.
-    int         x;           // X position
-    int         y;           // Y position
+    align  alignment;   // The alignment to set for the text.
+    float         alpha;       // Alpha transparency (0 = invisible, 1 = fully visible)
+    float         angle;       // Angular rotation in degrees.
+    bStyle borderStyle; // Style of the border, can be `BS_BORDER` or `BS_SHADOW`.
+    bool          bold;        // Bold flag
+    u32           borderColor; // Border color
+    float         borderSize;  // Border size
+    u32           color;       // Text color
+    bool          flipX;       // Horizontal flip.
+    bool          flipY;       // Vertical flip.
+    C2D_Font      font;        // Font to use
+    float         height;      // Height of the text.
+    std::string   text;        // Text content
+    bool          underline;   // Underlined text
+    bool          visible;     // Visibility flag
+    float         width;       // Width of the text.
+    int           x;           // X position
+    int           y;           // Y position
 
     struct {
         float x; // X's Acceleration speed.

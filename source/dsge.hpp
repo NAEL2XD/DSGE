@@ -7,10 +7,34 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <sstream>  // Added for ostringstream
+#include <sstream>
 
-// Forward declarations for all DSGE namespaces
+// Common enums that need to be available globally
+typedef enum {
+    BS_BORDER = 0,
+    BS_SHADOW = 1
+} bStyle;
+
+typedef enum {
+    AXES_X = 0,          // X axis only
+    AXES_Y = 1,          // Y axis only
+    AXES_XY = 2,         // Both X and Y axes
+    AXES_X_BOT = 3,      // X axis for bottom screen
+    AXES_Y_BOT = 4,      // Y axis for bottom screen
+    AXES_XY_BOT = 5      // Both axes for bottom screen
+} axes;
+
+typedef enum {
+    ALIGN_LEFT = 0,          // Left alignment for both screens
+    ALIGN_CENTER = 1,        // Centered alignment for top screen
+    ALIGN_RIGHT = 2,         // Right alignment for top screen
+    ALIGN_CENTER_BOT = 3,    // Centered alignment for bottom screen
+    ALIGN_RIGHT_BOT = 4      // Right alignment for bottom screen
+} align;
+
+// Forward declarations for all DSGE components
 namespace dsge {
+    // Namespaces
     namespace Applet {}
     namespace Math {}
     namespace Random {}
@@ -18,7 +42,7 @@ namespace dsge {
     namespace Timer {}
     namespace Touch {}
 
-    // Forward declarations for classes
+    // Classes
     class Sound;
     class Sprite;
     class Text;
@@ -39,6 +63,7 @@ namespace dsge {
 #include "touch.hpp"
 #include "tween.hpp"
 
+// Color structure
 struct color {
     u32 transparent;
     u32 white;
@@ -57,6 +82,7 @@ struct color {
     u32 cyan;
 };
 
+// Template function for string conversion
 template<typename T>
 std::string TSA(const T& value) {
     std::ostringstream oss;

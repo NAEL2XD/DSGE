@@ -5,14 +5,6 @@
 #include <citro2d.h>
 #include <string>
 
-typedef enum {
-    AXES_X      = 0, // X Axes for the Top Screen.
-    AXES_Y      = 1, // Y Axes for the Top Screen.
-    AXES_XY     = 2, // Both Axes for the Top Screen.
-    AXES_X_BOT  = 3, // X Axes for the Bottom Screen.
-    AXES_XY_BOT = 4  // Both Axes for the Bottom Screen.
-} axes;
-
 namespace dsge {
 class Sprite {
 public:
