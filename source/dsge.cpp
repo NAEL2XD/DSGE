@@ -18,6 +18,10 @@ namespace _internal {
     C3D_RenderTarget* top = nullptr;
     C3D_RenderTarget* bot = nullptr;
 
+    #if defined(DEBUG)
+    dsge::Text fpsText(-4, 4, "");
+    #endif
+
     void _logger(const std::string& message) {
         std::cout << message << std::endl;
 
@@ -69,6 +73,12 @@ void init() {
 
     osSetSpeedupEnable(true);
 
+    #if defined(DEBUG)
+    _internal::fpsText.scale.set(0.5, 0.5);
+    _internal::fpsText.alpha = 0.4;
+    _internal::fpsText.alignment = ALIGN_RIGHT;
+    #endif
+
     _internal::top = C2D_CreateScreenTarget(GFX_TOP,    GFX_LEFT);
     _internal::bot = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
     
@@ -111,6 +121,9 @@ void render(std::function<void()> topScr, std::function<void()> botScr) {
     topScr();
 
     #if defined(DEBUG)
+    _internal::fpsText.text = "FPS: " + std::to_string(FPS);
+    _internal::fpsText.render();
+
     _internal::_renderDebugText();
     #endif
 

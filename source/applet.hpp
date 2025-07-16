@@ -3,7 +3,6 @@
 
 #include "dsge.hpp"
 #include <string>
-#include <string.h>
 
 namespace dsge {
 namespace Applet {

@@ -1,6 +1,7 @@
 #ifndef DSGE_UTILS_HPP
 #define DSGE_UTILS_HPP
 
+#include "dsge.hpp"
 #include <fstream>
 
 namespace dsge {

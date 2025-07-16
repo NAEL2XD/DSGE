@@ -9,7 +9,7 @@
 namespace dsge {
 class Text {
 public:
-    align  alignment;   // The alignment to set for the text.
+    align         alignment;   // The alignment to set for the text.
     float         alpha;       // Alpha transparency (0 = invisible, 1 = fully visible)
     float         angle;       // Angular rotation in degrees.
     bStyle borderStyle; // Style of the border, can be `BS_BORDER` or `BS_SHADOW`.

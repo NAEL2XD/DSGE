@@ -14,15 +14,19 @@ namespace dsge {
  * with support for playback control, volume adjustment, and looping.
  * 
  * #### Supported Audio Formats:
+ * 
  * - Ogg Vorbis (.ogg) with recommended settings:
+ * 
  *   - Sample rate: 44100 Hz
+ * 
  *   - Channels: 1 (mono) or 2 (stereo)
+ * 
  *   - Bitrate: 96kbps
  * 
+ * 
  * #### FFMPEG Conversion Command:
- * ```
- * ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 -b:a 96k output.ogg
- * ```
+ * 
+ * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 -b:a 96k output.ogg`
  */
 class Sound {
 public:
