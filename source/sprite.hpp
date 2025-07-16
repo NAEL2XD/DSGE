@@ -1,5 +1,8 @@
+#ifndef DSGE_SPRITE_HPP
+#define DSGE_SPRITE_HPP
+
+#include "dsge.hpp"
 #include <citro2d.h>
-#include <3ds.h>
 #include <string>
 
 typedef enum {
@@ -148,3 +151,5 @@ public:
     void destroy();
 };
 } // namespace dsge
+
+#endif

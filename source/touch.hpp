@@ -1,3 +1,6 @@
+#ifndef DSGE_TOUCH_HPP
+#define DSGE_TOUCH_HPP
+
 #include "dsge.hpp"
 
 namespace dsge {
@@ -105,3 +108,5 @@ u16 getTouchY();
 bool isTouching(dsge::Sprite* obj1);
 }
 }
+
+#endif

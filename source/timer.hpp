@@ -1,3 +1,6 @@
+#ifndef DSGE_TIMER_HPP
+#define DSGE_TIMER_HPP
+
 #include <functional>
 
 namespace dsge {
@@ -34,3 +37,5 @@ void start(float seconds, std::function<void()> callback, int loops = 1);
 
 } // namespace TIMER
 } // namespace DSGE
+
+#endif

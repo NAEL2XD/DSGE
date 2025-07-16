@@ -1,4 +1,5 @@
 #include "touch.hpp"
+#include "sprite.hpp"
 
 namespace dsge {
 namespace Touch {

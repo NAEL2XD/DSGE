@@ -1,4 +1,7 @@
-#include <3ds.h>
+#ifndef DSGE_APPLET_HPP
+#define DSGE_APPLET_HPP
+
+#include "dsge.hpp"
 #include <string>
 #include <string.h>
 
@@ -74,3 +77,5 @@ std::string swkbdGetInput(std::string hintText = "Enter Text Here.");
 void openURL(std::string url = "https://example.com");
 }
 }
+
+#endif

@@ -1,5 +1,4 @@
 #include "sprite.hpp"
-#include "dsge.hpp"
 
 namespace dsge {
 Sprite::Sprite(int x, int y):
@@ -59,6 +58,7 @@ void Sprite::screenCenter(axes pos) {
         case AXES_Y:      y = newY; break;
         case AXES_XY:     x = newX; y = newY; break;
         case AXES_X_BOT:  x = newB; break;
+        case AXES_Y_BOT:  break;
         case AXES_XY_BOT: x = newB; y = newY; break;
     }
 }

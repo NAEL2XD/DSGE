@@ -1,3 +1,6 @@
+#ifndef DSGE_UTILS_HPP
+#define DSGE_UTILS_HPP
+
 #include <fstream>
 
 namespace dsge {
@@ -65,3 +68,5 @@ std::string formatBytes(float byte);
 std::string formatTime(float ms, int precision = 0);
 }
 }
+
+#endif

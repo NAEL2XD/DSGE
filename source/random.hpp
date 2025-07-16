@@ -1,3 +1,6 @@
+#ifndef DSGE_RANDOM_HPP
+#define DSGE_RANDOM_HPP
+
 #include "dsge.hpp"
 #include <stdlib.h>
 #include <math.h>
@@ -58,3 +61,5 @@ bool boolean(float chance = 50);
 u32 color();
 }
 }
+
+#endif

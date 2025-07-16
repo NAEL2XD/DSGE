@@ -1,20 +1,34 @@
-#include <citro2d.h>
+#ifndef DSGE_TEXT_HPP
+#define DSGE_TEXT_HPP
+
+#include "dsge.hpp"
+#include "sprite.hpp"
 #include <string>
 #include <filesystem>
-#include "sprite.hpp"
 
-typedef enum {
-    BS_Border = 0,
-    BS_Shadow = 1
-} bStyle;
+namespace dsge {
+    typedef enum {
+        BS_Border = 0,
+        BS_Shadow = 1
+    } bStyle;
 
-typedef enum {
-    ALIGN_LEFT = 0,          // Left alignment for both top and bottom screen.
-    ALIGN_CENTER = 1,       // Centered alignment for the top screen.
-    ALIGN_RIGHT = 2,       // Right alignment for the top screen.
-    ALIGN_CENTER_BOT = 3, // Centered alignment for the bottom screen.
-    ALIGN_RIGHT_BOT = 4, // Right alignment for the bottom screen.
-} align;
+    typedef enum {
+        AXES_X = 0,          // X axis only
+        AXES_Y = 1,          // Y axis only
+        AXES_XY = 2,         // Both X and Y axes
+        AXES_X_BOT = 3,      // X axis for bottom screen
+        AXES_Y_BOT = 4,      // Y axis for bottom screen
+        AXES_XY_BOT = 5      // Both axes for bottom screen
+    } axes;
+
+    typedef enum {
+        ALIGN_LEFT = 0,          // Left alignment for both top and bottom screen
+        ALIGN_CENTER = 1,        // Centered alignment for the top screen
+        ALIGN_RIGHT = 2,         // Right alignment for the top screen
+        ALIGN_CENTER_BOT = 3,    // Centered alignment for the bottom screen
+        ALIGN_RIGHT_BOT = 4      // Right alignment for the bottom screen
+    } align;
+}
 
 namespace dsge {
 class Text {
@@ -167,3 +181,5 @@ private:
 };
 
 } // namespace dsge
+
+#endif

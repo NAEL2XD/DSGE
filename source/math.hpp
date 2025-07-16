@@ -1,3 +1,6 @@
+#ifndef DSGE_MATH_HPP
+#define DSGE_MATH_HPP
+
 #include "sprite.hpp"
 #include <math.h>
 
@@ -59,3 +62,5 @@ float lerp(float a, float b, float t);
 double angleToRadians(double angle);
 }
 }
+
+#endif

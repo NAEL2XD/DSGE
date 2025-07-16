@@ -1,6 +1,4 @@
-#include <3ds.h>
 #include "text.hpp"
-#include "dsge.hpp"
 
 C2D_Text c2dText;
 namespace dsge {
@@ -74,10 +72,11 @@ void Text::screenCenter(axes pos) {
     float newB = (dsge::WIDTH_BOTTOM - width) / 2;
 
     switch(pos) {
-        case AXES_X:  x = newX; break;
-        case AXES_Y:  y = newY; break;
-        case AXES_XY: x = newX; y = newY; break;
+        case AXES_X:      x = newX; break;
+        case AXES_Y:      y = newY; break;
+        case AXES_XY:     x = newX; y = newY; break;
         case AXES_X_BOT:  x = newB; break;
+        case AXES_Y_BOT:  break;
         case AXES_XY_BOT: x = newB; y = newY; break;
     }
 }

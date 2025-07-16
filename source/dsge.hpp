@@ -1,18 +1,43 @@
-#include <filesystem>
-#include <vector>
-#include <sstream>
-#include <functional>
+#ifndef DSGE_HPP
+#define DSGE_HPP
 
-#include "applet.hpp"
+#include <3ds.h>
+#include <citro2d.h>
+#include <functional>
+#include <map>
+#include <string>
+#include <vector>
+#include <sstream>  // Added for ostringstream
+
+// Forward declarations for all DSGE namespaces
+namespace dsge {
+    namespace Applet {}
+    namespace Math {}
+    namespace Random {}
+    namespace Utils {}
+    namespace Timer {}
+    namespace Touch {}
+
+    // Forward declarations for classes
+    class Sound;
+    class Sprite;
+    class Text;
+    class Tween;
+}
+
+// Basic utility headers first
 #include "math.hpp"
 #include "random.hpp"
+#include "utils.hpp"
+
+// Then other headers
+#include "applet.hpp"
 #include "sound.hpp"
 #include "sprite.hpp"
 #include "text.hpp"
 #include "timer.hpp"
 #include "touch.hpp"
 #include "tween.hpp"
-#include "utils.hpp"
 
 struct color {
     u32 transparent;
@@ -42,7 +67,6 @@ std::string TSA(const T& value) {
 namespace dsge {
 // Forward declarations
 namespace _internal {
-    // Internal implementation details
     void _logger(const std::string& message);
     void _renderDebugText();
 }
@@ -163,7 +187,7 @@ int exit();
  * dsge::overlap(test1, test2); // will return true since it's both overlapping.
  * ```
  */
-bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2);
+bool overlap(Sprite* obj1, Sprite* obj2);
 
 /**
  * @brief Starts a function rendering that starts rendering the 3DS's top screen and bottom screen with what sprite renders you want to use.
@@ -230,7 +254,7 @@ void render(std::function<void()> topScr, std::function<void()> botScr = nullptr
  * print(dsge::WIDTH); // Returns int 400
  * ```
  */
-int WIDTH  = 400;
+inline constexpr int WIDTH = 400;
 
 /**
  * @brief The current height of the 3DS.
@@ -241,10 +265,10 @@ int WIDTH  = 400;
  * 
  * #### Example Usage:
  * ```
- * print(dsge::height); // Returns int 240
+ * print(dsge::HEIGHT); // Returns int 240
  * ```
  */
-int HEIGHT = 240;
+inline constexpr int HEIGHT = 240;
 
 /**
  * @brief The current width of the bottom screen for the 3DS.
@@ -258,14 +282,17 @@ int HEIGHT = 240;
  * print(dsge::WIDTH_BOTTOM); // Returns int 320
  * ```
  */
-int WIDTH_BOTTOM = 320;
-}
+inline constexpr int WIDTH_BOTTOM = 320;
 
 // Implementation details (in header but not exposed in namespace)
-namespace dsge::_internal {
+namespace _internal {
     // These are implementation details that shouldn't be used directly
     extern std::vector<Text> _debugText;
     extern std::vector<u8> _debugCol;
     extern C3D_RenderTarget* top;
     extern std::vector<u64> fpsCtr;
 }
+
+} // namespace dsge
+
+#endif

@@ -1,5 +1,8 @@
+#ifndef DSGE_SOUND_HPP
+#define DSGE_SOUND_HPP
+
 #include <string>
-#include <3ds.h>
+#include "dsge.hpp"
 
 namespace dsge {
 
@@ -129,3 +132,5 @@ private:
 };
 
 } // namespace dsge
+
+#endif
