@@ -102,8 +102,6 @@ void init() {
     bgColor = 0xFF000000;
     
     srand(time(NULL));
-
-    dsge::Text::init();
 }
 
 void render(std::function<void()> topScr, std::function<void()> botScr) {

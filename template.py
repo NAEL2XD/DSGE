@@ -5,6 +5,7 @@ import shutil
 cwd = f"{os.getcwd()}/"
 
 os.mkdir("template")
+os.mkdir("template/romfs")
 os.mkdir("template/source")
 os.mkdir("template/source/dsge")
 shutil.copy("examples/template/Makefile", "template/Makefile")

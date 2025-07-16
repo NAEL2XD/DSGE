@@ -4,8 +4,8 @@ C2D_Text c2dText;
 namespace dsge {
 
 // Static member initialization
-C2D_Font Text::defaultFont = nullptr;
-C2D_TextBuf Text::g_staticBuf = nullptr;
+C2D_Font Text::defaultFont = NULL;
+C2D_TextBuf Text::g_staticBuf = NULL;
 
 // Helper to combine alpha with color's alpha
 u32 Text::applyAlpha(u32 color, float alpha) {
@@ -14,18 +14,17 @@ u32 Text::applyAlpha(u32 color, float alpha) {
     return (color & 0x00FFFFFF) | (a << 24);
 }
 
-void Text::init() {
-    defaultFont = C2D_FontLoadSystem(CFG_REGION_USA);
-    g_staticBuf = C2D_TextBufNew(4096);
-}
-
 void Text::exit() {
-    C2D_FontFree(Text::defaultFont);
-    C2D_TextBufDelete(Text::g_staticBuf);
+    C2D_FontFree(defaultFont);
+    C2D_TextBufDelete(g_staticBuf);
 }
 
 void Text::createText() {
     // Clear and prepare Text buffer
+    if (g_staticBuf == NULL) { // Fuck you null
+        defaultFont = C2D_FontLoadSystem(CFG_REGION_USA);
+        g_staticBuf = C2D_TextBufNew(4096);
+    }
     C2D_TextBufClear(g_staticBuf);
     
     // Parse Text using selected font (default if none specified)
