@@ -1,9 +1,7 @@
 #ifndef DSGE_TWEEN_HPP
 #define DSGE_TWEEN_HPP
 
-#include <map>
-#include <string>
-#include <functional>
+#include <thread>
 #include "sprite.hpp"
 #include "text.hpp"
 

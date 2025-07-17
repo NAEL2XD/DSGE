@@ -3,7 +3,6 @@
 
 #include "dsge.hpp"
 #include "sprite.hpp"
-#include <string>
 #include <filesystem>
 
 namespace dsge {

@@ -2,8 +2,6 @@
 #define DSGE_RANDOM_HPP
 
 #include "dsge.hpp"
-#include <stdlib.h>
-#include <math.h>
 
 namespace dsge {
 namespace Random {

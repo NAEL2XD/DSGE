@@ -1,7 +1,6 @@
 #ifndef DSGE_SOUND_HPP
 #define DSGE_SOUND_HPP
 
-#include <string>
 #include "dsge.hpp"
 
 namespace dsge {

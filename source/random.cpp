@@ -1,5 +1,4 @@
 #include "random.hpp"
-#include <citro2d.h>
 
 namespace dsge {
 namespace Random {

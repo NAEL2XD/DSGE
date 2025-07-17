@@ -2,8 +2,6 @@
 #define DSGE_SPRITE_HPP
 
 #include "dsge.hpp"
-#include <citro2d.h>
-#include <string>
 
 namespace dsge {
 class Sprite {
@@ -24,6 +22,7 @@ public:
         C2D_SpriteSheet sprite;
         bool destroyed;
         C2D_ImageTint tint;
+        C3D_Mtx matrix;
     } _private;
 
     struct {
@@ -51,6 +50,7 @@ public:
     struct {
         float x; // X's Acceleration speed.
         float y; // Y's Acceleration speed.
+        float angle; // Angle's Acceleration speed.
     } acceleration;
 
     /**

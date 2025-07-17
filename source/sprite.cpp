@@ -83,13 +83,28 @@ void Sprite::render() {
 
     x += acceleration.x;
     y += acceleration.y;
-    
+    angle += acceleration.angle;
+
+    // Save view matrix
+    C2D_ViewSave(&_private.matrix);
+
+    // 1. Translate to sprite position
+    C2D_ViewTranslate(x, y);
+
+    // 2. Translate to center of sprite (pivot)
+    C2D_ViewTranslate(width * scX / 2.0f, height * scY / 2.0f);
+
+    // 3. Rotate
+    C2D_ViewRotate(Math::angleToRadians(angle));
+
+    // 4. Scale
+    C2D_ViewScale(scX, scY);
+
+    // 5. Draw at -width/2, -height/2 so pivot is at origin
     if (_private.image.tex != NULL) {
         float newAlpha = alpha >= 1 ? 1 : alpha <= 0 ? 0 : alpha;
-
         C2D_PlainImageTint(&_private.tint, C2D_Color32((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, ((color >> 24) & 0xFF) * newAlpha), 0.0f);
-
-        C2D_DrawImageAtRotated(_private.image, x, y, 0, Math::angleToRadians(angle), &_private.tint, scX, scY);
+        C2D_DrawImageAt(_private.image, -width / 2.0f, -height / 2.0f, 0, &_private.tint, 1, 1);
     } else {
         u32 finalColor = color;
         if (alpha < 1.0f) {
@@ -97,9 +112,10 @@ void Sprite::render() {
             a = static_cast<u8>(a * alpha);
             finalColor = (color & 0x00FFFFFF) | (a << 24);
         }
-
-        C2D_DrawRectSolid(x, y, 0, width * fabsf(scX), height * fabsf(scY), finalColor);
+        C2D_DrawRectSolid(-width / 2.0f, -height / 2.0f, 0, width * fabsf(scX), height * fabsf(scY), finalColor);
     }
+
+    C2D_ViewRestore(&_private.matrix);
 }
 
 void Sprite::destroy() {

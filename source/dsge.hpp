@@ -147,7 +147,7 @@ extern u32 bgColor;
 /**
  * @brief Represents the amount of frames per second in total.
  * 
- * Maximum is 60 fps, counted if dsge::Render is used.
+ * Maximum is 60 fps, Counted if dsge::Render is used.
  * 
  * #### Example Usage:
  * ```
@@ -168,7 +168,7 @@ extern int FPS;
  * 
  * #### Example Usage:
  * ```
- * #include <dsge.hpp>
+ * #include "dsge/dsge.hpp"
  * 
  * int main() {
  *     dsge::init(); // Here is where you init!
@@ -188,7 +188,7 @@ void init();
  * 
  * #### Example Usage:
  * ```
- * #include <dsge.hpp>
+ * #include "dsge/dsge.hpp"
  * 
  * int main() {
  *     // Rest of the functions above...
@@ -208,7 +208,10 @@ int exit();
  * #### Example Usage:
  * ```
  * dsge::Sprite test1(40, 40);
+ * test1.makeGraphic();
+ * 
  * dsge::Sprite test2(40, 40);
+ * test2.makeGraphic();
  * 
  * dsge::overlap(test1, test2); // will return true since it's both overlapping.
  * ```
