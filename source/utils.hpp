@@ -67,6 +67,30 @@ std::string formatBytes(float byte);
  * ```
  */
 std::string formatTime(float ms, int precision = 0);
+
+/**
+ * @brief Converts int-dex to a vectored array.
+ * @param number The amount of number to use.
+ * @returns A vectored array being integers in an all grouped one.
+ * 
+ * #### Example Usage:
+ * ```
+ * // Assuming you have an integer
+ * int myNum = 3210;
+ * 
+ * // And an array
+ * std::vector<int> arrayNum = {};
+ * 
+ * // DO this:
+ * arrayNum = dsge::Utils::intToArray(myNum);
+ * 
+ * // Print it all out
+ * for (auto &&i : container) {
+ *     print(i); // Prints 3, 2, 1 and 0!
+ * }
+ * ```
+ */
+std::vector<int> intToArray(int number);
 }
 }
 

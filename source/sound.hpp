@@ -121,10 +121,11 @@ public:
     bool replay();
 
     // Public member variables
-    int length;         ///< Total duration of the sound in milliseconds (read-only)
-    int time;           ///< Current playback position in milliseconds (read-only)
-    float volume;       ///< Playback volume (0.0 = silent, 1.0 = full volume)
-    bool loop;          ///< Whether the sound should loop automatically (default: false)
+    int length;   // Total duration of the sound in milliseconds (read-only)
+    int time;     // Current playback position in milliseconds (read-only)
+    float volume; // Playback volume (0.0 = silent, 1.0 = full volume)
+    bool loop;    // Whether the sound should loop automatically (default: false)
+    std::function<void()> onComplete = nullptr; // If audio is completed, it triggers this variable.
 
 private:
     std::string filePath;

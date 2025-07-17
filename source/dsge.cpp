@@ -37,6 +37,9 @@ namespace _internal {
         for (auto &&texts : _debugText) {
             texts.y = 2 + (11 * _index);
             texts.color = col(_debugCol[_index]);
+            if (texts.width > 398) {
+                texts.scale.x -= 0.01;
+            }
             texts.render();
             _debugCol[_index]--;
 

@@ -69,5 +69,17 @@ std::string formatTime(float ms, int precision) {
 
     return out;
 }
+
+std::vector<int> intToArray(int number) {
+    std::vector<int> digits;
+
+    if (number == 0) digits.push_back(0);
+    while (number > 0) {
+        digits.insert(digits.begin(), number % 10);
+        number /= 10;
+    }
+
+    return digits;
+}
 }
 }

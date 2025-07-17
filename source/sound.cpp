@@ -15,6 +15,7 @@ namespace {
         bool quit = false;
         bool loop = false;
         int* timePtr = nullptr;
+        dsge::Sound* owner = nullptr;
     };
 
     AudioChannel channels[24];
@@ -84,6 +85,7 @@ void Sound::play() {
 
     channel = found;
     AudioChannel* ch = &channels[channel];
+    ch->owner = this;
     ch->active = true;
     ch->channel_id = channel; // Set channel ID
     ch->loop = loop;
@@ -245,6 +247,11 @@ void audioThread(void* arg) {
     }
 
     channel->active = false;
+    if (channel->timePtr) *channel->timePtr = 0;
+
+    if (!channel->loop && channel->owner && channel->owner->onComplete) {
+        channel->owner->onComplete();
+    }
 }
 
 bool audioInit(AudioChannel* channel) {
