@@ -24,8 +24,8 @@ public:
     bool          underline;   // Underlined text
     bool          visible;     // Visibility flag
     float         width;       // Width of the text.
-    int           x;           // X position
-    int           y;           // Y position
+    float         x;           // X position
+    float         y;           // Y position
 
     struct {
         float x; // X's Acceleration speed.

@@ -49,10 +49,6 @@ Sound::Sound(const std::string& path)
     calculateLength();
 }
 
-Sound::~Sound() {
-    stop();
-}
-
 void Sound::calculateLength() {
     FILE* fh = fopen(filePath.c_str(), "rb");
     if (fh) {
@@ -218,13 +214,11 @@ bool fillBuffer(AudioChannel* channel) {
             if (bytesRead <= 0) {
                 if (bytesRead == 0 && channel->loop) {
                     ov_time_seek(&channel->vorbisFile, 0);
-                    if (channel->timePtr) *channel->timePtr = 0;
                     continue;
                 }
                 break;
             }
             totalBytes += bytesRead;
-            if (channel->timePtr) *channel->timePtr = static_cast<int>(ov_time_tell(&channel->vorbisFile)); // ms
         }
 
         if (totalBytes == 0) return false;
@@ -240,6 +234,10 @@ void audioThread(void* arg) {
     AudioChannel* channel = (AudioChannel*)arg;
 
     while (!channel->quit) {
+        if (channel->timePtr) {
+            *channel->timePtr = static_cast<int>(ov_time_tell(&channel->vorbisFile));
+        }
+
         if (!fillBuffer(channel)) {
             if (!channel->loop) break;
         }
@@ -247,7 +245,6 @@ void audioThread(void* arg) {
     }
 
     channel->active = false;
-    if (channel->timePtr) *channel->timePtr = 0;
 
     if (!channel->loop && channel->owner && channel->owner->onComplete) {
         channel->owner->onComplete();

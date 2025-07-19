@@ -20,12 +20,12 @@ namespace dsge {
  * 
  *   - Channels: 1 (mono) or 2 (stereo)
  * 
- *   - Bitrate: 96kbps
+ *   - Bitrate: ANY
  * 
  * 
  * #### FFMPEG Conversion Command:
  * 
- * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 -b:a 96k output.ogg`
+ * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 output.ogg`
  */
 class Sound {
 public:
@@ -35,7 +35,7 @@ public:
      * 
      * #### FFMPEG Conversion Command:
      * 
-     * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 -b:a 96k output.ogg`
+     * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 output.ogg`
      * 
      * #### Example Usage:
      * ```
@@ -44,11 +44,6 @@ public:
      * ```
      */
     Sound(const std::string& path);
-    
-    /**
-     * @brief Destructor - automatically stops playback and cleans up resources
-     */
-    ~Sound();
 
     /**
      * @brief Starts playback of the sound

@@ -8,14 +8,14 @@ class Sprite {
 public:
     float alpha;    // Alpha transparency (0 = invisible, 1 = fully visible)
     float angle;    // Rotation angle.
-    u32   color;    // Sprite color.
+    u32   color;    // Sprite color, only works if it isn't an image!
     bool  flipX;    // Horizontal flip.
     bool  flipY;    // Vertical flip.
     u16   height;   // Sprite height.
     bool  visible;  // Sprite visibility.
     u16   width;    // Sprite width.
-    int   x;        // X Position of Sprite.
-    int   y;        // Y Position of Sprite.
+    float x;        // X Position of Sprite.
+    float y;        // Y Position of Sprite.
 
     struct {
         C2D_Image image;
