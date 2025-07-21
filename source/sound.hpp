@@ -21,11 +21,6 @@ namespace dsge {
  *   - Channels: 1 (mono) or 2 (stereo)
  * 
  *   - Bitrate: ANY
- * 
- * 
- * #### FFMPEG Conversion Command:
- * 
- * `ffmpeg -i input.ogg -c:a libvorbis -ar 44100 -ac 1 output.ogg`
  */
 class Sound {
 public:
@@ -42,6 +37,7 @@ public:
      * // Load a sound from romfs:/sounds/effect.ogg
      * dsge::Sound effect("sounds/effect.ogg");
      * ```
+     * 
      */
     Sound(const std::string& path);
 
@@ -49,6 +45,7 @@ public:
      * @brief Starts playback of the sound
      * 
      * If the sound is already playing, this will resume playback if paused.
+     * 
      * If the sound is at the end, it will restart from the beginning.
      * 
      * #### Example Usage:
@@ -114,7 +111,6 @@ public:
      */
     bool replay();
 
-    // Public member variables
     int length;   // Total duration of the sound in milliseconds (read-only)
     int time;     // Current playback position in milliseconds (read-only)
     float volume; // Playback volume (0.0 = silent, 1.0 = full volume)

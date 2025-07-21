@@ -63,7 +63,7 @@ std::string formatBytes(float byte);
  * #### Example Usage:
  * ```
  * print(dsge::Utils::formatTime(6000)); // Returns 0:06
- * print(dsge::Utils::formatTime(1234567, 2)); // Returns 20:34.123400
+ * print(dsge::Utils::formatTime(1234567, 2)); // Returns 20:34.12
  * ```
  */
 std::string formatTime(float ms, int precision = 0);

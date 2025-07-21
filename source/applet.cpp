@@ -4,8 +4,8 @@ namespace dsge {
 namespace Applet {
 void sendNotification(std::string title, std::string description) {
     // Convert strings to UTF-16
-    u16 _title[96] = {0};
-    u16 _message[2048] = {0};
+    u16 _title[64] = {0};
+    u16 _message[65535] = {0};
     
     // Convert ASCII to UTF-16
     const char* ascii_title = title.c_str();
@@ -26,7 +26,6 @@ void sendNotification(std::string title, std::string description) {
 void popupError(errorConf errorCtx, std::string text) {
     errorInit(&errorCtx, ERROR_TEXT, CFG_LANGUAGE_EN);
     errorText(&errorCtx, text.c_str());
-    errorCtx.homeButton = false;
     errorDisp(&errorCtx);
 }
 

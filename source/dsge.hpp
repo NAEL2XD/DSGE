@@ -9,27 +9,26 @@
 #include <vector>
 #include <sstream>
 
-// Common enums that need to be available globally
 typedef enum {
-    BS_BORDER = 0,
-    BS_SHADOW = 1
+    BS_BORDER = 0, // Bordered Text, Can be only used on Text Class
+    BS_SHADOW = 1  // Shadowed Text, Can be only used on Shadow Class
 } bStyle;
 
 typedef enum {
-    AXES_X = 0,          // X axis only
-    AXES_Y = 1,          // Y axis only
-    AXES_XY = 2,         // Both X and Y axes
-    AXES_X_BOT = 3,      // X axis for bottom screen
-    AXES_Y_BOT = 4,      // Y axis for bottom screen
-    AXES_XY_BOT = 5      // Both axes for bottom screen
+    AXES_X = 0,     // X axis only
+    AXES_Y = 1,     // Y axis only
+    AXES_XY = 2,    // Both X and Y axes
+    AXES_X_BOT = 3, // X axis for bottom screen
+    AXES_Y_BOT = 4, // Y axis for bottom screen
+    AXES_XY_BOT = 5 // Both axes for bottom screen
 } axes;
 
 typedef enum {
-    ALIGN_LEFT = 0,          // Left alignment for both screens
-    ALIGN_CENTER = 1,        // Centered alignment for top screen
-    ALIGN_RIGHT = 2,         // Right alignment for top screen
-    ALIGN_CENTER_BOT = 3,    // Centered alignment for bottom screen
-    ALIGN_RIGHT_BOT = 4      // Right alignment for bottom screen
+    ALIGN_LEFT = 0,       // Left alignment for both screens
+    ALIGN_CENTER = 1,     // Centered alignment for top screen
+    ALIGN_RIGHT = 2,      // Right alignment for top screen
+    ALIGN_CENTER_BOT = 3, // Centered alignment for bottom screen
+    ALIGN_RIGHT_BOT = 4   // Right alignment for bottom screen
 } align;
 
 // Forward declarations for all DSGE components

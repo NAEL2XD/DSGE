@@ -29,6 +29,7 @@ void sendNotification(std::string title, std::string description);
  * errorType type; // see errorType enum
  * int errorCode; // can be 0-9999999, if it's 1001111: 100-1111
  * bool homeButton; // Whatever or not you want to allow to press the home button
+ * // Rest of them either does not do anything or cannot be undocumented
  * ```
  * 
  * #### Example Usage:

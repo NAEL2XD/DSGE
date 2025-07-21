@@ -71,6 +71,8 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
             else if (prop.first == "color") start_values["color"] = static_cast<float>(target.color);
             else if (prop.first == "angle") start_values["angle"] = target.angle;
             else if (prop.first == "alpha") start_values["alpha"] = target.alpha;
+            else if (prop.first == "height") start_values["height"] = target.height;
+            else if (prop.first == "width") start_values["width"] = target.width;
         }
 
         // Tween loop
@@ -94,6 +96,10 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
                     target.angle = lerp(start_values["angle"], prop.second, eased_progress);
                 }  else if (prop.first == "alpha") {
                     target.alpha = lerp(start_values["alpha"], prop.second, eased_progress);
+                }  else if (prop.first == "height") {
+                    target.height = lerp(start_values["height"], prop.second, eased_progress);
+                }  else if (prop.first == "width") {
+                    target.width = lerp(start_values["width"], prop.second, eased_progress);
                 }
             }
 
@@ -109,6 +115,8 @@ void Tween::tween_impl(T& target, const std::map<std::string, float>& properties
             else if (prop.first == "color") target.color = static_cast<u32>(prop.second);
             else if (prop.first == "angle") target.angle = prop.second;
             else if (prop.first == "alpha") target.alpha = prop.second;
+            else if (prop.first == "height") target.height = prop.second;
+            else if (prop.first == "width") target.width = prop.second;
         }
     }).detach();
 }

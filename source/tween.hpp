@@ -25,9 +25,9 @@ namespace dsge {
 class Tween {
 public:
     /**
-     * @brief Tweens (interpolates) sprite or text properties over time
+     * @brief Tweens (interpolates) a sprite or text properties over time
      * @param target The sprite or text object to tween
-     * @param properties Map of properties to tween with target values { {"x",600}, {"color",0xFF0000FF} }
+     * @param properties Map of properties to tween with target values `{{"x", 600}, {"color", 0xFF0000FF}}`
      * @param duration Duration of tween in seconds
      * @param ease Easing function to use (default: EASE_LINEAR)
      * 

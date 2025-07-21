@@ -11,9 +11,9 @@ public:
     u32   color;    // Sprite color, only works if it isn't an image!
     bool  flipX;    // Horizontal flip.
     bool  flipY;    // Vertical flip.
-    u16   height;   // Sprite height.
+    float height;   // Sprite height.
     bool  visible;  // Sprite visibility.
-    u16   width;    // Sprite width.
+    float width;    // Sprite width.
     float x;        // X Position of Sprite.
     float y;        // Y Position of Sprite.
 
