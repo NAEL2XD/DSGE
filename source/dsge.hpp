@@ -39,13 +39,13 @@ namespace dsge {
     namespace Random {}
     namespace Utils {}
     namespace Timer {}
-    namespace Touch {}
-
+    
     // Classes
     class Sound;
     class Sprite;
     class Text;
     class Tween;
+    class Touch;
 }
 
 // Basic utility headers first

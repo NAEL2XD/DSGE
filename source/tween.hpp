@@ -31,16 +31,41 @@ public:
      * @param duration Duration of tween in seconds
      * @param ease Easing function to use (default: EASE_LINEAR)
      * 
-     * #### Details:
+     * #### Supported Properties:
      * 
-     * Supported properties:
-     * - x: horizontal position
-     * - y: vertical position
-     * - scale.x: horizontal scale
-     * - scale.y: vertical scale
-     * - color: color value (as float to match other properties)
+     * - `x`: horizontal position.
      * 
-     * For color, pass the value as float (e.g., `static_cast<float>(0xFF0000FF)`)
+     * - `y`: vertical position.
+     * 
+     * - `scale.x`: horizontal scale.
+     * 
+     * - `scale.y`: vertical scale.
+     * 
+     * - `color`: Color value (as float to match other properties).
+     * 
+     * - `angle`: Angular position.
+     * 
+     * - `alpha`: Visibility variable.
+     * 
+     * - `height`: Height variable
+     * 
+     * - `width`: Width variable
+     * 
+     * #### Example Usage:
+     * ```
+     * dsge::Sprite newSprite(0, 0);
+     * newSprite.makeGraphic(16, 16);
+     * 
+     * // Tween x, y and alpha
+     * dsge::Tween::tween(newSprite, {{"x", 160}, {"y", 320}, {"alpha", 0.5}});
+     * 
+     * // Watch it happen
+     * while (aptMainLoop()) {
+     *     dsge::render([&]() {
+     *         newSprite.render();
+     *     });
+     * }
+     * ```
      */
     static void tween(dsge::Sprite& target, const std::map<std::string, float>& properties, float duration, eases ease = EASE_LINEAR);
     static void tween(dsge::Text& target, const std::map<std::string, float>& properties, float duration, eases ease = EASE_LINEAR);
