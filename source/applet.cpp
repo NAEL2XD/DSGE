@@ -48,14 +48,13 @@ void openURL(std::string url) {
         return;
     }
     size_t url_len = strlen(url.c_str()) + 1;
-    if (url_len > 0x400) return openURL("NULL");
+    if (url_len > 1024) return openURL("NULL");
     size_t buffer_size = url_len + 1;
-    u8* buffer = (u8*)malloc(buffer_size); // Add explicit cast here
+    u8* buffer = (u8*)malloc(buffer_size);
     if (!buffer) return openURL("NULL");
     memcpy(buffer, url.c_str(), url_len);
     buffer[url_len] = 0;
     aptLaunchSystemApplet(APPID_WEB, buffer, buffer_size, 0);
-    free(buffer);
 }
 }
 }

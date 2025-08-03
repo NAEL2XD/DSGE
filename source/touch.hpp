@@ -69,7 +69,7 @@ public:
      * 
      * #### Example Code:
      * ```
-     * print(dsge::Touch::getTouchX());
+     * trace(dsge::Touch::getTouchX());
      * ```
      * 
      */
@@ -81,7 +81,7 @@ public:
      * 
      * #### Example Code:
      * ```
-     * print(dsge::Touch::getTouchY());
+     * trace(dsge::Touch::getTouchY());
      * ```
      * 
      */
@@ -92,6 +92,10 @@ public:
      * @param obj1 The object sprite to check.
      * @returns `true` if touching, `false` otherwise.
      * 
+     * #### Note:
+     * 
+     * Only use this if the object is in the bottom screen!
+     * 
      * #### Example Usage:
      * ```
      * // Create sprite
@@ -100,9 +104,9 @@ public:
      * 
      * // Touching sprite
      * if (dsge::Touch::isTouching(obj)) {
-     *     print("Touching!");
+     *     trace("Touching!");
      * } else {
-     *     print("Not Touching!");
+     *     trace("Not Touching!");
      * }
      * ```
      */

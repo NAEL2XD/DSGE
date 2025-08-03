@@ -15,6 +15,7 @@ public:
     bool          bold;        // Bold flag
     u32           borderColor; // Border color
     float         borderSize;  // Border size
+    bool          bottom;      // Whetever or not you want to render in the bottom screen.
     u32           color;       // Text color
     bool          flipX;       // Horizontal flip.
     bool          flipY;       // Vertical flip.
@@ -112,9 +113,9 @@ public:
      * // Assuming you have a font.
      * dsge::Text newText(0, 0, "New Font!");
      * if (newText.loadFont("vcr.bcfnt")) {
-     *     print("Success!");
+     *     trace("Success!");
      * } else {
-     *     print("Failure...");
+     *     trace("Failure...");
      * }
      * 
      * // Assuming you want to use the note from a variable, this does not need to be used:
@@ -125,22 +126,13 @@ public:
     bool loadFont(std::string filePath);
 
     /**
-     * @brief Renders the Text (must be in a rendering frame)
-     * 
-     * #### Example Usage:
-     * ```
-     * dsge::Text text(60, 30, "Hello, DSGE!");
-     * text.render(); // Renders a text.
-     * ```
-     */
-    void render();
-
-    /**
      * @brief Frees text's specific variables and cleans up memory so you can handle making more rendered texts.
      * 
      * For Null Safety reasons, there's a specific variable that's not gonna be freed but will stop you from rendering, or doing text's stuff.
      */
     void destroy();
+
+    void _render();
 
     static void init();
     static void exit();

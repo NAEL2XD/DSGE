@@ -55,7 +55,7 @@ void popupError(errorConf errorCtx, std::string text);
  * ```
  * std::string newInput = dsge::Applet::swkbdGetInput();
  * 
- * print(newInput);
+ * trace(newInput);
  * ```
  */
 std::string swkbdGetInput(std::string hintText = "Enter Text Here.");

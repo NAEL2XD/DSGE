@@ -18,17 +18,12 @@ typedef enum {
     AXES_X = 0,     // X axis only
     AXES_Y = 1,     // Y axis only
     AXES_XY = 2,    // Both X and Y axes
-    AXES_X_BOT = 3, // X axis for bottom screen
-    AXES_Y_BOT = 4, // Y axis for bottom screen
-    AXES_XY_BOT = 5 // Both axes for bottom screen
 } axes;
 
 typedef enum {
     ALIGN_LEFT = 0,       // Left alignment for both screens
     ALIGN_CENTER = 1,     // Centered alignment for top screen
     ALIGN_RIGHT = 2,      // Right alignment for top screen
-    ALIGN_CENTER_BOT = 3, // Centered alignment for bottom screen
-    ALIGN_RIGHT_BOT = 4   // Right alignment for bottom screen
 } align;
 
 // Forward declarations for all DSGE components
@@ -60,7 +55,6 @@ namespace dsge {
 #include "text.hpp"
 #include "timer.hpp"
 #include "touch.hpp"
-#include "tween.hpp"
 
 // Color structure
 struct color {
@@ -124,7 +118,7 @@ extern color dsgeColor;
  *     // Do something
  * });
  * 
- * print(dsge::elapsed); // Returns the amount of time in millis
+ * trace(dsge::elapsed); // Returns the amount of time in millis
  * ```
  */
 extern u64 elapsed;
@@ -132,7 +126,7 @@ extern u64 elapsed;
 /**
  * @brief Current background hex color when using the dsge::Render function.
  * 
- * Be careful, if you are debugging and want to set the background color to white, the print output will blend with all of the whiteness! But not to fear, it'll output in the bottom screen instead.
+ * Be careful, if you are debugging and want to set the background color to white, the trace output will blend with all of the whiteness! But not to fear, it'll output in the bottom screen instead.
  * 
  * #### Example Usage:
  * ```
@@ -155,7 +149,7 @@ extern u32 bgColor;
  *     // Do something
  * });
  * 
- * print(dsge::FPS); // Get the amount of FPS!
+ * trace(dsge::FPS); // Get the amount of FPS!
  * ```
  */
 extern int FPS;
@@ -218,12 +212,28 @@ int exit();
 bool overlap(Sprite* obj1, Sprite* obj2);
 
 /**
- * @brief Starts a function rendering that starts rendering the 3DS's top screen and bottom screen with what sprite renders you want to use.
+ * @brief Adds a sprite or text to members for dsge::Update;
+ * @param basic The sprite or text to add as.
  * 
- * This can also render **debug** lines on the top left for clever lookarounds, if you have DEBUG defined, and not used `std::cout` or `printf` and just used `print` instead.
+ * #### Example Usage:
+ * ```
+ * dsge::Sprite newSprite(120, 120);
+ * newSprite.makeGraphic(64, 64);
+ * dsge::add(newSprite);
  * 
- * @param topScr The Top Screen to render.
- * @param botScr *(Optional)* The Bottom Screen to render, leave nothing or nullptr to not render the bottom screen.
+ * dsge::Text newText(120, 120, "Hello");
+ * dsge::add(newText);
+ * ```
+ */
+void add(Sprite& spr);
+void add(Text& txt);
+
+/**
+ * @brief Starts a function rendering that starts rendering the 3DS's top screen and bottom screen with the concurrent added to members.
+ * 
+ * This can also render **debug** lines on the top left for clever lookarounds, if you have DEBUG defined, and not used `std::cout` or `printf` and just used `trace` instead.
+ * 
+ * Always returns aptMainLoop(), always required.
  * 
  * #### Warning:
  * 
@@ -242,32 +252,21 @@ bool overlap(Sprite* obj1, Sprite* obj2);
  * // Test Text
  * dsge::Text newText(0, 0, "New Text!");
  * 
- * while (aptMainLoop()) {
- *     // Now render all of it! In the top screen.
- *     dsge::render([&]() {
- *         newSprite.render();
- *         newText.render();
- *     });
- * 
- *     // Both top and bottom
- *     dsge::render([&]() {
- *         newSprite.render();
- *         newText.render();
- *     }, [&]() {
- *         newSprite.render();
- *         newText.render();
- *     });
+ * // Now render all of it! For top and bottom screen.
+ * while (dsge::render()) {
+ *     // Code stuff here
  * }
  * ```
+ * 
  */
-void render(std::function<void()> topScr, std::function<void()> botScr = nullptr);
+bool render();
 
 // Public logging macro
 #if defined(DEBUG)
     #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__))
-    #define print(message) dsge::_internal::_logger(std::string(__FILENAME__) + ":" + std::to_string(__LINE__) + ": " + TSA(message))
+    #define trace(message) dsge::_internal::_logger(std::string(__FILENAME__) + ":" + std::to_string(__LINE__) + ": " + TSA(message))
 #else
-    #define print(message) ((void)0)
+    #define trace(message) ((void)0)
 #endif
 
 /**
@@ -279,7 +278,7 @@ void render(std::function<void()> topScr, std::function<void()> botScr = nullptr
  * 
  * #### Example Usage:
  * ```
- * print(dsge::WIDTH); // Returns int 400
+ * trace(dsge::WIDTH); // Returns int 400
  * ```
  */
 inline constexpr int WIDTH = 400;
@@ -293,7 +292,7 @@ inline constexpr int WIDTH = 400;
  * 
  * #### Example Usage:
  * ```
- * print(dsge::HEIGHT); // Returns int 240
+ * trace(dsge::HEIGHT); // Returns int 240
  * ```
  */
 inline constexpr int HEIGHT = 240;
@@ -307,7 +306,7 @@ inline constexpr int HEIGHT = 240;
  * 
  * #### Example Usage:
  * ```
- * print(dsge::WIDTH_BOTTOM); // Returns int 320
+ * trace(dsge::WIDTH_BOTTOM); // Returns int 320
  * ```
  */
 inline constexpr int WIDTH_BOTTOM = 320;

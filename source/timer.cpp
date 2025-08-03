@@ -1,5 +1,5 @@
 #include "timer.hpp"
-#include "3ds/svc.h"
+#include <3ds.h>
 #include <thread>
 
 namespace dsge {
@@ -11,8 +11,6 @@ void start(float seconds, std::function<void()> callback, int loops) {
     }
 
     std::thread([seconds, callback, loops]() {
-        using namespace std::chrono;
-        
         for (int i = 0; i < loops; i++) {
             // Sleep for the specified duration
             svcSleepThread(1000000000 * seconds);
@@ -23,5 +21,5 @@ void start(float seconds, std::function<void()> callback, int loops) {
     }).detach();
 }
 
-} // namespace TIMER
-} // namespace DSGE
+}
+}

@@ -4,6 +4,7 @@ namespace dsge {
 Sprite::Sprite(int x, int y):
     alpha(1),
     angle(0),
+    bottom(false),
     color(0xFFFFFFFF),
     flipX(false),
     flipY(false),
@@ -26,7 +27,7 @@ bool Sprite::loadGraphic(const std::string& file) {
 
     _private.sprite = C2D_SpriteSheetLoad(filePath.c_str());
     if (!_private.sprite) {
-        print("[WARN] Sprite::loadGraphic: Failed to load Sprite sheet: " + file);
+        trace("[WARN] Sprite::loadGraphic: Failed to load Sprite sheet: " + file);
         return false;
     }
 
@@ -49,17 +50,13 @@ void Sprite::makeGraphic(int width, int height, u32 color) {
 void Sprite::screenCenter(axes pos) {
     if (_private.destroyed) return;
 
-    float newX = (dsge::WIDTH - width) / 2;
+    float newX = bottom ? (dsge::WIDTH_BOTTOM - width) / 2 :(dsge::WIDTH - width) / 2;
     float newY = (dsge::HEIGHT - height) / 2;
-    float newB = (dsge::WIDTH_BOTTOM - width) / 2;
 
     switch(pos) {
-        case AXES_X:      x = newX; break;
-        case AXES_Y:      y = newY; break;
-        case AXES_XY:     x = newX; y = newY; break;
-        case AXES_X_BOT:  x = newB; break;
-        case AXES_Y_BOT:  break;
-        case AXES_XY_BOT: x = newB; y = newY; break;
+        case AXES_X:  x = newX; break;
+        case AXES_Y:  y = newY; break;
+        case AXES_XY: x = newX; y = newY; break;
     }
 }
 
@@ -71,7 +68,7 @@ bool Sprite::isOnScreen() {
     return !(x + (width * scale.x) < 0 || x > dsge::WIDTH || y + (height * scale.y) < 0 || y > dsge::HEIGHT);
 }
 
-void Sprite::render() {
+void Sprite::_render() {
     if (_private.destroyed || !visible || (width == 0 && height == 0) || !isOnScreen()) return;
 
     // Crash prevention(?)

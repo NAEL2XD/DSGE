@@ -1,6 +1,7 @@
 #include "dsge.hpp"
 #include <iostream>
 #include <thread>
+#include <typeinfo>
 
 #define col(a) 255 | (255 << (u32)8) | (255 << (u32)16) | (a << (u32)24)
 
@@ -40,7 +41,7 @@ namespace _internal {
             if (texts.width > 398) {
                 texts.scale.x -= 0.01;
             }
-            texts.render();
+            texts._render();
             _debugCol[_index]--;
 
             if (_debugCol[_index] == 0) {
@@ -62,6 +63,46 @@ namespace _internal {
             _debugCol.resize(22);
         }
     }
+
+    std::vector<std::reference_wrapper<Sprite>> spriteMembers = {};
+    std::vector<std::reference_wrapper<Text>> textMembers = {};
+    void _proceedRender(bool top) {
+        for (size_t i = 0; i < spriteMembers.size();) {
+            Sprite& conc = spriteMembers[i].get(); // Use reference here
+
+            if (conc._private.destroyed) {
+                spriteMembers.erase(spriteMembers.begin() + i);
+                continue;
+            }
+
+            if (conc.bottom != top) {
+                conc._render();
+            }
+            i++;
+        }
+
+        for (size_t i = 0; i < textMembers.size();) {
+            Text& conc = textMembers[i].get(); // Use reference here
+
+            if (conc._private.destroyed) {
+                textMembers.erase(textMembers.begin() + i); // Also fixed: was erasing from spriteMembers
+                continue;
+            }
+
+            if (conc.bottom != top) {
+                conc._render();
+            }
+            i++;
+        }
+    }
+}
+
+void add(Sprite& spr) {
+    _internal::spriteMembers.push_back(spr);
+}
+
+void add(Text& txt) {
+    _internal::textMembers.push_back(txt);
 }
 
 void init() {
@@ -107,7 +148,7 @@ void init() {
     srand(time(NULL));
 }
 
-void render(std::function<void()> topScr, std::function<void()> botScr) {
+bool render() {
     u64 start = osGetTime();
 
     while (_internal::fpsCtr.size() != 0 && _internal::fpsCtr[0] < start) {
@@ -119,22 +160,20 @@ void render(std::function<void()> topScr, std::function<void()> botScr) {
     C2D_SceneBegin(_internal::top);
     C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
 
-    topScr();
-
+    _internal::_proceedRender(true);
+    
     #if defined(DEBUG)
     _internal::fpsText.text = "FPS: " + std::to_string(FPS);
-    _internal::fpsText.render();
+    _internal::fpsText._render();
 
     _internal::_renderDebugText();
     #endif
 
-    if (botScr != nullptr) {
-        C2D_TargetClear(_internal::bot, 0xFF000000);
-        C2D_SceneBegin(_internal::bot);
-        C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
+    C2D_TargetClear(_internal::bot, 0xFF000000);
+    C2D_SceneBegin(_internal::bot);
+    C2D_DrawRectSolid(0, 0, 0, 400, 240, bgColor);
 
-        botScr();
-    }
+    _internal::_proceedRender(false);
     
     C3D_FrameEnd(0);
 
@@ -142,6 +181,8 @@ void render(std::function<void()> topScr, std::function<void()> botScr) {
     FPS = _internal::fpsCtr.size() < 60 ? _internal::fpsCtr.size() : 60;
 
     elapsed = osGetTime() - start;
+
+    return aptMainLoop();
 }
 
 bool overlap(dsge::Sprite* obj1, dsge::Sprite* obj2) {

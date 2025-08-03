@@ -9,27 +9,16 @@ int main() {
     // Initialize DSGE, which initialize what dsge needs.
     dsge::init();
 
-    // Using the basic PRINT to print out "Hello, World!" which gives the current line, file name and the output.
-    print("Hello, World!");
+    // Using the basic TRACE to create a text being "Hello, World!" which gives the current line, file name and the output.
+    trace("Hello, World!");
 
-    // Current loop.
-    while (aptMainLoop()) {
-        /*
-            Checking if the key START is touched.
-            Be careful, inside an dsge render function will throw an error!
-        */
+    // Current loop, always render first.
+    while (dsge::render()) {
+        // Checking if the key START is touched.
         hidScanInput();
         if (hidKeysDown() & KEY_START) {
             break;
         }
-
-        // This is where you can render your stuff here (text, sprite, etc). 
-        dsge::render([&]() {
-            /*
-                Your render sprites here.
-                dsge::Sprite or dsge::Text must ends with .render(); to actually render!
-            */
-        });
     }
 
     /*

@@ -30,23 +30,17 @@ bool Touch::isTouchUp() {
 
 u16 Touch::getTouchX() {
     if (!isTouchHeld()) return -1;
-    touchPosition t = getTouchData();
-    return t.px;
+    return getTouchData().px;
 }
 
 u16 Touch::getTouchY() {
     if (!isTouchHeld()) return -1;
-    touchPosition t = getTouchData();
-    return t.py;
+    return getTouchData().py;
 }
 
 template<typename T>
 bool Touch::isTouching_impl(T& obj) {
-    if (!obj.visible) {
-        return false;
-    }
-
-    if (!isTouchHeld()) {
+    if (!obj.visible || !isTouchHeld()) {
         return false;
     }
 

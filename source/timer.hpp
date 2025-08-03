@@ -24,12 +24,12 @@ namespace Timer {
  * ```
  * // One-time timer
  * DSGE::TIMER::start(2.5, []() {
- *     print("Timer done!");
+ *     trace("Timer done!");
  * });
  * 
  * // Repeating timer
  * DSGE::TIMER::start(1, []() {
- *     print("Ping!");
+ *     trace("Ping!");
  * }, 5); // Repeat 5 times
  * ```
  */

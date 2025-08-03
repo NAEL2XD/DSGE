@@ -17,7 +17,7 @@ namespace Utils {
  * #### Example Usage:
  * ```
  * dsge::Utils::readFile("cool_file.txt"); // Will read cool_file.txt from romfs.
- * print(dsge::Utils::readFile("a_file.txt")); // Converts to a readable print c string.
+ * trace(dsge::Utils::readFile("a_file.txt")); // Converts to a readable trace c string.
  * ```
  */
 std::string readFile(const std::string& filePath);
@@ -46,7 +46,7 @@ bool saveFile(const std::string& filePath, const std::string& content);
  * 
  * #### Example Usage:
  * ```
- * print(dsge::Utils::formatBytes(123456789)); // Returns 117MB
+ * trace(dsge::Utils::formatBytes(123456789)); // Returns 117MB
  * ```
  */
 std::string formatBytes(float byte);
@@ -62,8 +62,8 @@ std::string formatBytes(float byte);
  * 
  * #### Example Usage:
  * ```
- * print(dsge::Utils::formatTime(6000)); // Returns 0:06
- * print(dsge::Utils::formatTime(1234567, 2)); // Returns 20:34.12
+ * trace(dsge::Utils::formatTime(6000)); // Returns 0:06
+ * trace(dsge::Utils::formatTime(1234567, 2)); // Returns 20:34.12
  * ```
  */
 std::string formatTime(float ms, int precision = 0);
@@ -84,9 +84,9 @@ std::string formatTime(float ms, int precision = 0);
  * // DO this:
  * arrayNum = dsge::Utils::intToArray(myNum);
  * 
- * // Print it all out
+ * // trace it all out
  * for (auto &&i : container) {
- *     print(i); // Prints 3, 2, 1 and 0!
+ *     trace(i); // Prints 3, 2, 1 and 0!
  * }
  * ```
  */

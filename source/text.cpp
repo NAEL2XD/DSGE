@@ -10,8 +10,7 @@ C2D_TextBuf Text::g_staticBuf = NULL;
 // Helper to combine alpha with color's alpha
 u32 Text::applyAlpha(u32 color, float alpha) {
     u8 a = (color >> 24) & 0xFF;
-    a = static_cast<u8>(a * alpha);
-    return (color & 0x00FFFFFF) | (a << 24);
+    return (color & 0x00FFFFFF) | (static_cast<u8>(a * alpha) << 24);
 }
 
 void Text::exit() {
@@ -43,6 +42,7 @@ Text::Text(int x, int y, const std::string& Text) :
     bold(false),
     borderColor(0xFF000000),
     borderSize(0),
+    bottom(false),
     color(0xFFFFFFFF),
     flipX(false),
     flipY(false),
@@ -66,17 +66,13 @@ void Text::screenCenter(axes pos) {
 
     createText(); // Ensure width/height is updated
 
-    float newX = (dsge::WIDTH  - width) / 2;
+    float newX = bottom ? (dsge::WIDTH_BOTTOM - width) / 2 : (dsge::WIDTH  - width) / 2;
     float newY = (dsge::HEIGHT - height) / 2;
-    float newB = (dsge::WIDTH_BOTTOM - width) / 2;
 
     switch(pos) {
         case AXES_X:      x = newX; break;
         case AXES_Y:      y = newY; break;
         case AXES_XY:     x = newX; y = newY; break;
-        case AXES_X_BOT:  x = newB; break;
-        case AXES_Y_BOT:  break;
-        case AXES_XY_BOT: x = newB; y = newY; break;
     }
 }
 
@@ -93,17 +89,19 @@ bool Text::isOnScreen() {
 }
 
 bool Text::loadFont(std::string filePath) {
+    if (_private.destroyed) return false;
+    
     std::string fullPath = "romfs:/" + filePath;
 
     if (!std::filesystem::exists(fullPath)) {
-        print("[WARN] Text::loadFont: File Path doesn't exist: " + fullPath);
+        trace("[WARN] Text::loadFont: File Path doesn't exist: " + fullPath);
         return false;
     }
 
     return (font = C2D_FontLoad(fullPath.c_str())) != NULL;
 }
 
-void Text::render() {
+void Text::_render() {
     if (_private.destroyed || !visible || text.empty() || !isOnScreen()) return;
 
     createText(); // Ensure text dimensions are updated
@@ -118,11 +116,9 @@ void Text::render() {
     float newX = x;
     if (!debug) {
         switch (alignment) {
-            case ALIGN_LEFT:       break; // No change
-            case ALIGN_CENTER:     newX += (dsge::WIDTH - width) / 2; break;
-            case ALIGN_RIGHT:      newX += dsge::WIDTH - width; break;
-            case ALIGN_CENTER_BOT: newX = (dsge::WIDTH_BOTTOM - width) / 2; break;
-            case ALIGN_RIGHT_BOT:  newX = dsge::WIDTH_BOTTOM - width; break;
+            case ALIGN_LEFT:   break; // No change
+            case ALIGN_CENTER: newX += bottom ? (dsge::WIDTH_BOTTOM - width) / 2 : (dsge::WIDTH - width) / 2; break;
+            case ALIGN_RIGHT:  newX += bottom ? dsge::WIDTH_BOTTOM - width : dsge::WIDTH - width; break;
         }
     }
 

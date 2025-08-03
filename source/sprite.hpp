@@ -8,6 +8,7 @@ class Sprite {
 public:
     float alpha;    // Alpha transparency (0 = invisible, 1 = fully visible)
     float angle;    // Rotation angle.
+    bool  bottom;   // Whetever or not you want to render in the bottom screen.
     u32   color;    // Sprite color, only works if it isn't an image!
     bool  flipX;    // Horizontal flip.
     bool  flipY;    // Vertical flip.
@@ -110,17 +111,6 @@ public:
     bool isOnScreen();
 
     /**
-     * @brief Renders the Sprite (must be in a rendering frame)
-     * 
-     * #### Example Usage:
-     * ```
-     * dsge::Sprite sprite();
-     * sprite.render(); // Renders a sprite.
-     * ```
-     */
-    void render();
-
-    /**
      * @brief Centers the Sprite on the screen.
      * @param pos Type of axes position to use, can be `AXES_X`, `AXES_Y`, `AXES_XY`.
      * 
@@ -141,6 +131,8 @@ public:
      * For Null Safety reasons, there's a specific variable that's not gonna be freed but will stop you from rendering, or doing sprite's stuff.
      */
     void destroy();
+
+    void _render();
 };
 } // namespace dsge
 
