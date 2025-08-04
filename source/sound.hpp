@@ -48,6 +48,10 @@ public:
      * 
      * If the sound is at the end, it will restart from the beginning.
      * 
+     * #### Warning:
+     * 
+     * Will cause slight stutters but it's for like 100ms.
+     * 
      * #### Example Usage:
      * ```
      * dsge::Sound bgm("music.ogg");
@@ -93,35 +97,18 @@ public:
      * ```
      */
     void stop();
-    
-    /**
-     * @brief Restarts playback from the beginning
-     * @return true if successful, false if playback couldn't be restarted
-     * 
-     * This provides a smooth restart without audio glitches.
-     * 
-     * #### Example Usage:
-     * ```
-     * sound.play();
-     * // When you need to restart:
-     * if (!sound.replay()) {
-     *     sound.play(); // Fallback if replay fails
-     * }
-     * ```
-     */
-    bool replay();
 
     int length;   // Total duration of the sound in milliseconds (read-only)
     int time;     // Current playback position in milliseconds (read-only)
     float volume; // Playback volume (0.0 = silent, 1.0 = full volume)
     bool loop;    // Whether the sound should loop automatically (default: false)
     std::function<void()> onComplete = nullptr; // If audio is completed, it triggers this variable.
-
-private:
-    std::string filePath;
+    
     int channel;
     bool isPlaying;
     bool isPaused;
+private:
+    std::string filePath;
     
     void calculateLength();
 };

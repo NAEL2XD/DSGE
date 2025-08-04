@@ -40,12 +40,12 @@ u16 Touch::getTouchY() {
 
 template<typename T>
 bool Touch::isTouching_impl(T& obj) {
-    if (!obj.visible || !isTouchHeld()) {
+    if (!obj.visible || !obj.bottom || !isTouchHeld()) {
         return false;
     }
 
     touchPosition t = getTouchData();
-    return (obj.x < t.px) && (obj.x + obj.width > t.px) && (obj.y < t.py) && (obj.y + obj.height > t.py);
+    return (obj.x < t.px) && (obj.x + (obj.width * obj.scale.x) > t.px) && (obj.y < t.py) && (obj.y + (obj.height * obj.scale.y) > t.py);
 }
 
 bool Touch::isTouching(dsge::Sprite& obj) {

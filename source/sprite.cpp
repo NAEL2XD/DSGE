@@ -50,8 +50,10 @@ void Sprite::makeGraphic(int width, int height, u32 color) {
 void Sprite::screenCenter(axes pos) {
     if (_private.destroyed) return;
 
-    float newX = bottom ? (dsge::WIDTH_BOTTOM - width) / 2 :(dsge::WIDTH - width) / 2;
-    float newY = (dsge::HEIGHT - height) / 2;
+    float newW = (width * scale.x);
+
+    float newX = bottom ? (dsge::WIDTH_BOTTOM - newW) / 2 : (dsge::WIDTH - newW) / 2;
+    float newY = (dsge::HEIGHT - (height * scale.y)) / 2;
 
     switch(pos) {
         case AXES_X:  x = newX; break;

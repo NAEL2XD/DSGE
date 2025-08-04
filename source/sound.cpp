@@ -64,9 +64,34 @@ void Sound::calculateLength() {
 }
 
 void Sound::play() {
-    if (isPlaying) {
-        if (isPaused) resume();
-        return;
+    // If we have an active channel, completely nuke it
+    if (channel != -1) {
+        // Force stop everything
+        ndspChnReset(channel);
+        
+        // Free all resources
+        if (channels[channel].audioBuffer) {
+            linearFree(channels[channel].audioBuffer);
+            channels[channel].audioBuffer = nullptr;
+        }
+        
+        // Clear Vorbis file
+        ov_clear(&channels[channel].vorbisFile);
+        
+        // Kill the thread if it exists
+        if (channels[channel].threadId) {
+            threadJoin(channels[channel].threadId, UINT64_MAX);
+            threadFree(channels[channel].threadId);
+        }
+        
+        // Mark as inactive
+        channels[channel].active = false;
+        channel = -1;
+    }
+
+    if (channel != -1 && channels[channel].active) {
+        ndspChnReset(channel);
+        channels[channel].active = false;
     }
 
     // Find a free channel
@@ -151,51 +176,6 @@ void Sound::stop() {
     time = 0;
 }
 
-bool Sound::replay() {
-    // If not playing or channel is invalid or channel is not active, treat as a fresh play
-    if (channel == -1 || !channels[channel].active) {
-        stop();     // Clean up if needed
-        play();
-        return isPlaying;
-    }
-
-    AudioChannel* ch = &channels[channel];
-
-    // Pause playback
-    ndspChnSetPaused(channel, true);
-
-    // Try to rewind to beginning
-    if (ov_time_seek(&ch->vorbisFile, 0) != 0) {
-        ndspChnSetPaused(channel, false);
-        return false;
-    }
-
-    // Free old buffer
-    if (ch->audioBuffer) {
-        linearFree(ch->audioBuffer);
-        ch->audioBuffer = nullptr;
-    }
-
-    // Reset channel
-    ndspChnReset(channel);
-
-    // Reinitialize
-    if (!audioInit(ch)) {
-        ndspChnSetPaused(channel, false);
-        return false;
-    }
-
-    // Update volume in case it changed
-    ndspChnSetMix(channel, (float[12]){volume, volume, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-
-    // Resume playback
-    ndspChnSetPaused(channel, false);
-    isPaused = false;
-    time = 0;
-
-    return true;
-}
-
 } // namespace dsge
 
 // Internal implementation
@@ -232,22 +212,8 @@ bool fillBuffer(AudioChannel* channel) {
 
 void audioThread(void* arg) {
     AudioChannel* channel = (AudioChannel*)arg;
-
-    while (!channel->quit) {
-        if (channel->timePtr) {
-            *channel->timePtr = static_cast<int>(ov_time_tell(&channel->vorbisFile));
-        }
-
-        if (!fillBuffer(channel)) {
-            if (!channel->loop) break;
-        }
+    while (!channel->quit && fillBuffer(channel)) {
         LightEvent_Wait(&s_event);
-    }
-
-    channel->active = false;
-
-    if (!channel->loop && channel->owner && channel->owner->onComplete) {
-        channel->owner->onComplete();
     }
 }
 
@@ -281,22 +247,9 @@ bool audioInit(AudioChannel* channel) {
 }
 
 void stopChannel(AudioChannel* channel) {
-    if (!channel->active) return;
-
-    if (channel->threadId) {
-        channel->quit = true;
-        LightEvent_Signal(&s_event);
-        threadJoin(channel->threadId, UINT64_MAX);
-        threadFree(channel->threadId);
-        channel->threadId = nullptr;
-    }
-
-    if (channel->vorbisFile.datasource) {
-        ov_clear(&channel->vorbisFile);
-    }
-
-    audioExit(channel);
-    channel->active = false;
+    if (!channel) return;
+    channel->quit = true;
+    LightEvent_Signal(&s_event);
 }
 
 void audioExit(AudioChannel* channel) {
